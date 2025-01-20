@@ -1,13 +1,22 @@
 #!/bin/bash
 
-# URL of the JSON file
-URL="https://01.tomorrow-school.ai/assets/superhero/all.json"
-
 # Check if HERO_ID is set
 if [ -z "$HERO_ID" ]; then
-  echo "Error: HERO_ID environment variable is not set."
+  echo "HERO_ID is not set. Please set it using: export HERO_ID=<id>"
   exit 1
 fi
 
-# Fetch superhero name based on HERO_ID and remove quotes
-curl -s $URL | jq -r ".[] | select(.id == $HERO_ID) | .name"
+# URL of the JSON file
+URL="https://01.tomorrow-school.ai/assets/superhero/all.json"
+
+# Fetch the data and filter by HERO_ID to get relatives
+RELATIVES=$(curl -s "$URL" | jq -r --arg id "$HERO_ID" '.[] | select(.id == ($id | tonumber)) | .connections.relatives')
+
+# Check if relatives were found
+if [ -z "$RELATIVES" ]; then
+  echo "No relatives found for HERO_ID=$HERO_ID."
+  exit 1
+fi
+
+# Output the relatives without quotes
+echo "$RELATIVES"
