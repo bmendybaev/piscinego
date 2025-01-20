@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Find and show files matching the criteria
+find . -type f \( -name "a*" -o -name "*z" -o -name "z*a!" \)
