@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -type f \( -name "z*a\!" -o -name "a*" -o -name "*z" \)
+find . \( -name "*z" -o -name "a*" -o -name "z*a\!" \)
