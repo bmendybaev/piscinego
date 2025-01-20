@@ -1,3 +1,3 @@
-$ bash hello.sh
-Hello Birlik
+#!/bin/bash
+echo "Hello Birlik"
 $
