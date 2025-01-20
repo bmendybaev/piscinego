@@ -1,4 +1,2 @@
 #!/bin/bash
-
-# Use find to list files matching the criteria and suppress errors
-find . -type f \( -name "a*" -o -name "*z" -o -name "z*a!" \) 2>/dev/null
+find . \( -type f -a \( -name "a*" -o -name "*z" -o -name "z*a!" \) \)
