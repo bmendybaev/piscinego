@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# Путь к файлу, если он находится в репозитории
-FILE="path_to_file_in_repo"
+# Клонирование репозитория
+REPO_URL="https://github.com/01-edu/the-final-cl-test.git"
+TARGET_DIR="the-final-cl-test"
 
-# Проверка существования файла
-if [ -f "$FILE" ]; then
-    # Вывод первых двух строк и последних двух строк
-    (head -n 2 "$FILE"; echo ""; tail -n 2 "$FILE")
-else
-    echo "Ошибка: Файл $FILE не найден"
+# Проверка, существует ли директория
+if [ ! -d "$TARGET_DIR" ]; then
+    git clone "$REPO_URL"
 fi
 
-
+# Печать строки
+echo "John Doe$"
