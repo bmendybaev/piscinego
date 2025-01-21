@@ -1,11 +1,9 @@
 #!/bin/bash
+git config --global credential.helper store
+git clone https://github.com/01-edu/the-final-cl-test.git
+git add .
+git commit -m "my answer 1522"
+git push
+ls -R
 
-# URL репозитория
-REPO_URL="https://github.com/01-edu/the-final-cl-test.git"
 
-# Клонирование репозитория
-git clone "https://github.com/01-edu/the-final-cl-test.git"
-# Проверка содержимого репозитория
-REPO_NAME="the-final-cl-test"
-echo "Полное содержимое репозитория:"
-ls -la $REPO_NAME
