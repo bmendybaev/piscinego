@@ -4,8 +4,7 @@
 REPO_URL="https://github.com/01-edu/the-final-cl-test.git"
 
 # Клонирование репозитория
-git clone $REPO_URL
-
+git clone "https://github.com/01-edu/the-final-cl-test.git"
 # Проверка содержимого репозитория
 REPO_NAME="the-final-cl-test"
 echo "Полное содержимое репозитория:"
