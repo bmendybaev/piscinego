@@ -1,9 +1,14 @@
 #!/bin/bash
-git config --global credential.helper store
-git clone https://github.com/01-edu/the-final-cl-test.git
-git add .
-git commit -m "my answer 1522"
-git push
-ls -R
+
+# Путь к файлу, если он находится в репозитории
+FILE="path_to_file_in_repo"
+
+# Проверка существования файла
+if [ -f "$FILE" ]; then
+    # Вывод первых двух строк и последних двух строк
+    (head -n 2 "$FILE"; echo ""; tail -n 2 "$FILE")
+else
+    echo "Ошибка: Файл $FILE не найден"
+fi
 
 
