@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Create a file named "\?$'ChouMi'$?\" with content '01' and nothing else.
+echo -n "01" > "\?$'ChouMi'$?\\"
