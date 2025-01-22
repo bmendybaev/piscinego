@@ -1,7 +1,14 @@
 #!/bin/bash
 
-# Navigate to the mystery directory
-cd mystery || { echo "Directory 'mystery' not found!"; exit 1; }
+# Locate the mystery directory
+MYSTERY_DIR=$(find . -type d -name "mystery" | head -n 1)
+
+if [ -z "$MYSTERY_DIR" ]; then
+    echo "Directory 'mystery' not found!"
+    exit 1
+fi
+
+cd "$MYSTERY_DIR" || { echo "Failed to enter 'mystery' directory!"; exit 1; }
 
 # Ensure the crimescene file exists
 if [ ! -f crimescene ]; then
