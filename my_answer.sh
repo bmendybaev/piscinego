@@ -1,16 +1,22 @@
 #!/bin/bash
 
-# Перейти в директорию mystery
+# Navigate to the mystery directory
 cd mystery || { echo "Directory 'mystery' not found!"; exit 1; }
 
-# Проверить наличие файла crimescene
+# Ensure the crimescene file exists
 if [ ! -f crimescene ]; then
-    echo "File 'crimescene' not found in 'mystery' directory!"
+    echo "File 'crimescene' not found!"
     exit 1
 fi
 
-# Найти и вывести все строки с "CLUE" в crimescene
-echo "Searching for clues in 'crimescene'..."
+# Extract all lines containing the word 'CLUE'
+echo "Collecting clues from 'crimescene':"
 grep "CLUE" crimescene
 
-# Если файл hint
+# If hints are available, print them
+for hint in hint1 hint2 hint3; do
+    if [ -f "$hint" ]; then
+        echo -e "\nHint from '$hint':"
+        cat "$hint"
+    fi
+done
