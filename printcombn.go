@@ -3,35 +3,43 @@ package piscine
 import "github.com/01-edu/z01"
 
 func PrintCombN(n int) {
-	// Проверяем, что n находится в допустимых пределах
+	// dopustim predel
 	if n <= 0 || n >= 10 {
 		return
 	}
 
-	// Рекурсивная функция для генерации комбинаций
-	var generate func(start, depth int, combination []rune)
-	generate = func(start, depth int, combination []rune) {
-		if depth == n {
-			// Печатаем текущую комбинацию
-			for _, r := range combination {
-				z01.PrintRune(r)
-			}
-			// Проверяем, последняя ли это комбинация
-			if combination[0] != '9'-rune(n)+1 {
-				z01.PrintRune(',')
-				z01.PrintRune(' ')
-			}
-			return
+	// massiv
+	combination := make([]int, n)
+	for i := 0; i < n; i++ {
+		combination[i] = i
+	}
+
+	for {
+		// na pechat
+		for _, digit := range combination {
+			z01.PrintRune('0' + rune(digit))
 		}
 
-		// Рекурсивно добавляем цифры в комбинацию
-		for i := start; i <= 9; i++ {
-			generate(i+1, depth+1, append(combination, '0'+rune(i)))
+		// ogranichitel po kombinatsiayam
+		if combination[0] == 10-n {
+			break
+		}
+
+		// zapyat and probel
+		z01.PrintRune(',')
+		z01.PrintRune(' ')
+
+		// drugoi uroven
+		i := n - 1
+		for i >= 0 && combination[i] == 9-(n-1-i) {
+			i--
+		}
+		combination[i]++
+		for j := i + 1; j < n; j++ {
+			combination[j] = combination[j-1] + 1
 		}
 	}
 
-	// Запускаем генерацию комбинаций
-	generate(0, 0, []rune{})
-	// Завершаем строку
+	// konec stroki
 	z01.PrintRune('\n')
 }
