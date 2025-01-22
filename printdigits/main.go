@@ -1,14 +1,12 @@
 package main
 
-import (
-	"github.com/01-edu/z01"
-)
+import "fmt"
 
 func main() {
-	for i := '0'; i <= '9'; i++ {
-		z01.PrintRune(i)
-	}
-	z01.PrintRune('\n')
-}package main
-
+    // Print decimal digits from 0 to 9 in ascending order
+    for i := 0; i <= 9; i++ {
+        fmt.Print(i)
+    }
+    fmt.Println() // Print a newline character at the end
+}
 
