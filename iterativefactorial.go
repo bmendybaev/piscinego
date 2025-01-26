@@ -1,7 +1,8 @@
 package piscine
+import main
 
 func IterativeFactorial(nb int) int {
-	if nb < 0 || nb > 20 { // Check for non-possible values or overflow
+	if nb < 0 || nb > 20 { // Handle invalid values or overflow
 		return 0
 	}
 
