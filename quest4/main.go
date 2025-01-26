@@ -1,7 +1,8 @@
 package main
 
-import "piscine"
+import ("piscine" "fmt")
 
 func main() {
-	piscine.IterativeFactorial(4)
+	arg :=4
+	fmt.printLn(piscine.iterative)
 }
