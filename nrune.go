@@ -1,17 +1,17 @@
-package main
+package piscine
 
-import (
-	"piscine"
-
-	"github.com/01-edu/z01"
-)
-
-func main() {
-	// Test the NRune function with various inputs
-	z01.PrintRune(piscine.NRune("Hello!", 3)) // 'l'
-	z01.PrintRune(piscine.NRune("Salut!", 2)) // 'a'
-	z01.PrintRune(piscine.NRune("Bye!", -1))  // Invalid, prints nothing
-	z01.PrintRune(piscine.NRune("Bye!", 5))   // Invalid, prints nothing
-	z01.PrintRune(piscine.NRune("Ola!", 4))   // '!'
-	z01.PrintRune('\n')                       // Add a newline at the end
+func NRune(s string, n int) rune {
+	// Return 0 if n is less than 1
+	if n < 1 {
+		return 0
+	}
+	// Iterate over the string to find the nth rune
+	for i, r := range s {
+		if i+1 == n { // i+1 because rune indices are 1-based
+			return r
+		}
+	}
+	// If the nth rune doesn't exist, return 0
+	return 0
+	// sdfdsfsdf
 }
