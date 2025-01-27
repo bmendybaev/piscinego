@@ -1,40 +1,38 @@
 package piscine
 
-import (
-	"fmt"
-)
+import "fmt"
 
-// EightQueens запускает решение задачи восьми ферзей
+// EightQueens prints all solutions to the eight queens puzzle
 func EightQueens() {
-	solve("", 0)
+	solveQueens("", 0)
 }
 
-// solve рекурсивно строит все возможные решения
-func solve(current string, row int) {
-	// Если 8 ферзей расставлены, выводим решение
+// solveQueens recursively tries to solve the puzzle
+func solveQueens(current string, row int) {
+	// Base case: If all 8 queens are placed, print the solution
 	if row == 8 {
 		fmt.Println(current)
 		return
 	}
 
-	// Проверяем все возможные столбцы для текущей строки
+	// Try placing a queen in each column for the current row
 	for col := 1; col <= 8; col++ {
-		if isValid(current, row, col) {
-			// Добавляем текущий столбец в строку решения
-			solve(current+fmt.Sprint(col), row+1)
+		if isValidPosition(current, row, col) {
+			// Add the current column to the solution and recurse
+			solveQueens(current+fmt.Sprint(col), row+1)
 		}
 	}
 }
 
-// isValid проверяет, можно ли поставить ферзя в (row, col)
-func isValid(current string, row, col int) bool {
+// isValidPosition checks if a queen can be placed at (row, col)
+func isValidPosition(current string, row, col int) bool {
 	for r := 0; r < row; r++ {
-		// Получаем столбец ферзя на предыдущих строках
+		// Column of the previously placed queen
 		placedCol := int(current[r] - '0')
 
-		// Проверяем:
-		// - Ферзь не находится в том же столбце
-		// - Ферзь не находится на диагонали
+		// Check for conflicts:
+		// - Same column
+		// - Same diagonal
 		if placedCol == col || abs(placedCol-col) == abs(r-row) {
 			return false
 		}
@@ -42,7 +40,7 @@ func isValid(current string, row, col int) bool {
 	return true
 }
 
-// abs возвращает модуль числа
+// abs returns the absolute value of an integer
 func abs(x int) int {
 	if x < 0 {
 		return -x
