@@ -1,38 +1,31 @@
 package piscine
 
-import "fmt"
+import "github.com/01-edu/z01"
 
 // EightQueens prints all solutions to the eight queens puzzle
 func EightQueens() {
-	solveQueens("", 0)
+	findSolution("", 0)
 }
 
-// solveQueens recursively tries to solve the puzzle
-func solveQueens(current string, row int) {
-	// Base case: If all 8 queens are placed, print the solution
-	if row == 8 {
-		fmt.Println(current)
+// findSolution recursively tries to solve the puzzle
+func findSolution(current string, row int) {
+	if row == 8 { // Base case: All 8 queens are placed
+		printSolution(current)
 		return
 	}
 
-	// Try placing a queen in each column for the current row
+	// Try placing a queen in each column
 	for col := 1; col <= 8; col++ {
-		if isValidPosition(current, row, col) {
-			// Add the current column to the solution and recurse
-			solveQueens(current+fmt.Sprint(col), row+1)
+		if isSafe(current, row, col) {
+			findSolution(current+string(rune('0'+col)), row+1)
 		}
 	}
 }
 
-// isValidPosition checks if a queen can be placed at (row, col)
-func isValidPosition(current string, row, col int) bool {
+// isSafe checks if placing a queen at (row, col) is valid
+func isSafe(current string, row, col int) bool {
 	for r := 0; r < row; r++ {
-		// Column of the previously placed queen
 		placedCol := int(current[r] - '0')
-
-		// Check for conflicts:
-		// - Same column
-		// - Same diagonal
 		if placedCol == col || abs(placedCol-col) == abs(r-row) {
 			return false
 		}
@@ -40,7 +33,15 @@ func isValidPosition(current string, row, col int) bool {
 	return true
 }
 
-// abs returns the absolute value of an integer
+// printSolution prints the solution using z01.PrintRune
+func printSolution(solution string) {
+	for _, r := range solution {
+		z01.PrintRune(r)
+	}
+	z01.PrintRune('\n')
+}
+
+// abs returns the absolute value of a number
 func abs(x int) int {
 	if x < 0 {
 		return -x
