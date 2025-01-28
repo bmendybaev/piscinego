@@ -6,7 +6,7 @@ import (
 	"github.com/01-edu/z01"
 )
 
-// sortString выполняет сортировку строки по ASCII.
+// sortString выполняет сортировку строки по ASCII
 func sortString(s string) string {
 	runes := []rune(s)
 	for i := 0; i < len(runes)-1; i++ {
@@ -19,187 +19,18 @@ func sortString(s string) string {
 	return string(runes)
 }
 
-// printHelp выводит инструкции по использованию программы.
+// printHelp выводит инструкции по использованию программы
 func printHelp() {
-	z01.PrintRune('-')
-	z01.PrintRune('-')
-	z01.PrintRune('i')
-	z01.PrintRune('n')
-	z01.PrintRune('s')
-	z01.PrintRune('e')
-	z01.PrintRune('r')
-	z01.PrintRune('t')
-	z01.PrintRune('\n')
-	z01.PrintRune(' ')
-	z01.PrintRune(' ')
-	z01.PrintRune('-')
-	z01.PrintRune('i')
-	z01.PrintRune('\n')
-	z01.PrintRune('\t')
-	z01.PrintRune(' ')
-	z01.PrintRune('T')
-	z01.PrintRune('h')
-	z01.PrintRune('i')
-	z01.PrintRune('s')
-	z01.PrintRune(' ')
-	z01.PrintRune('f')
-	z01.PrintRune('l')
-	z01.PrintRune('a')
-	z01.PrintRune('g')
-	z01.PrintRune(' ')
-	z01.PrintRune('i')
-	z01.PrintRune('n')
-	z01.PrintRune('s')
-	z01.PrintRune('e')
-	z01.PrintRune('r')
-	z01.PrintRune('t')
-	z01.PrintRune('s')
-	z01.PrintRune(' ')
-	z01.PrintRune('t')
-	z01.PrintRune('h')
-	z01.PrintRune('e')
-	z01.PrintRune(' ')
-	z01.PrintRune('s')
-	z01.PrintRune('t')
-	z01.PrintRune('r')
-	z01.PrintRune('i')
-	z01.PrintRune('n')
-	z01.PrintRune('g')
-	z01.PrintRune(' ')
-	z01.PrintRune('i')
-	z01.PrintRune('n')
-	z01.PrintRune('t')
-	z01.PrintRune('o')
-	z01.PrintRune(' ')
-	z01.PrintRune('t')
-	z01.PrintRune('h')
-	z01.PrintRune('e')
-	z01.PrintRune(' ')
-	z01.PrintRune('s')
-	z01.PrintRune('t')
-	z01.PrintRune('r')
-	z01.PrintRune('i')
-	z01.PrintRune('n')
-	z01.PrintRune('g')
-	z01.PrintRune(' ')
-	z01.PrintRune('p')
-	z01.PrintRune('a')
-	z01.PrintRune('s')
-	z01.PrintRune('s')
-	z01.PrintRune('e')
-	z01.PrintRune('d')
-	z01.PrintRune(' ')
-	z01.PrintRune('a')
-	z01.PrintRune('s')
-	z01.PrintRune(' ')
-	z01.PrintRune('a')
-	z01.PrintRune('r')
-	z01.PrintRune('g')
-	z01.PrintRune('u')
-	z01.PrintRune('m')
-	z01.PrintRune('e')
-	z01.PrintRune('n')
-	z01.PrintRune('t')
-	z01.PrintRune('.')
-	z01.PrintRune('\n')
-
-	z01.PrintRune('-')
-	z01.PrintRune('-')
-	z01.PrintRune('o')
-	z01.PrintRune('r')
-	z01.PrintRune('d')
-	z01.PrintRune('e')
-	z01.PrintRune('r')
-	z01.PrintRune('\n')
-	z01.PrintRune(' ')
-	z01.PrintRune(' ')
-	z01.PrintRune('-')
-	z01.PrintRune('o')
-	z01.PrintRune('\n')
-	z01.PrintRune('\t')
-	z01.PrintRune(' ')
-	z01.PrintRune('T')
-	z01.PrintRune('h')
-	z01.PrintRune('i')
-	z01.PrintRune('s')
-	z01.PrintRune(' ')
-	z01.PrintRune('f')
-	z01.PrintRune('l')
-	z01.PrintRune('a')
-	z01.PrintRune('g')
-	z01.PrintRune(' ')
-	z01.PrintRune('w')
-	z01.PrintRune('i')
-	z01.PrintRune('l')
-	z01.PrintRune('l')
-	z01.PrintRune(' ')
-	z01.PrintRune('b')
-	z01.PrintRune('e')
-	z01.PrintRune('h')
-	z01.PrintRune('a')
-	z01.PrintRune('v')
-	z01.PrintRune('e')
-	z01.PrintRune(' ')
-	z01.PrintRune('l')
-	z01.PrintRune('i')
-	z01.PrintRune('k')
-	z01.PrintRune('e')
-	z01.PrintRune(' ')
-	z01.PrintRune('a')
-	z01.PrintRune(' ')
-	z01.PrintRune('b')
-	z01.PrintRune('o')
-	z01.PrintRune('o')
-	z01.PrintRune('l')
-	z01.PrintRune('e')
-	z01.PrintRune('a')
-	z01.PrintRune('n')
-	z01.PrintRune(',')
-	z01.PrintRune(' ')
-	z01.PrintRune('i')
-	z01.PrintRune('f')
-	z01.PrintRune(' ')
-	z01.PrintRune('i')
-	z01.PrintRune('t')
-	z01.PrintRune(' ')
-	z01.PrintRune('i')
-	z01.PrintRune('s')
-	z01.PrintRune(' ')
-	z01.PrintRune('c')
-	z01.PrintRune('a')
-	z01.PrintRune('l')
-	z01.PrintRune('l')
-	z01.PrintRune('e')
-	z01.PrintRune('d')
-	z01.PrintRune(' ')
-	z01.PrintRune('i')
-	z01.PrintRune('t')
-	z01.PrintRune(' ')
-	z01.PrintRune('w')
-	z01.PrintRune('i')
-	z01.PrintRune('l')
-	z01.PrintRune('l')
-	z01.PrintRune(' ')
-	z01.PrintRune('o')
-	z01.PrintRune('r')
-	z01.PrintRune('d')
-	z01.PrintRune('e')
-	z01.PrintRune('r')
-	z01.PrintRune(' ')
-	z01.PrintRune('t')
-	z01.PrintRune('h')
-	z01.PrintRune('e')
-	z01.PrintRune(' ')
-	z01.PrintRune('a')
-	z01.PrintRune('r')
-	z01.PrintRune('g')
-	z01.PrintRune('u')
-	z01.PrintRune('m')
-	z01.PrintRune('e')
-	z01.PrintRune('n')
-	z01.PrintRune('t')
-	z01.PrintRune('.')
-	z01.PrintRune('\n')
+	helpText := `--insert
+  -i
+         This flag inserts the string into the string passed as argument.
+--order
+  -o
+         This flag will behave like a boolean, if it is called it will order the argument.
+`
+	for _, r := range helpText {
+		z01.PrintRune(r)
+	}
 }
 
 func main() {
@@ -215,13 +46,20 @@ func main() {
 
 	// Обработка аргументов
 	for _, arg := range os.Args[1:] {
-		if len(arg) > 9 && arg[:9] == "--insert=" {
-			insert = arg[9:]
-		} else if arg == "-i" || arg == "--insert" {
-			insert = ""
+		if len(arg) > 3 && (arg[:3] == "-i=" || arg[:9] == "--insert=") {
+			// Обрабатываем вставку: извлекаем строку после = (для -i= или --insert=)
+			equalIndex := 0
+			for i, r := range arg {
+				if r == '=' {
+					equalIndex = i
+					break
+				}
+			}
+			insert = arg[equalIndex+1:]
 		} else if arg == "-o" || arg == "--order" {
 			order = true
 		} else {
+			// Всё остальное считается основной строкой
 			mainString = arg
 		}
 	}
