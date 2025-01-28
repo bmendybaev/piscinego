@@ -17,7 +17,7 @@ func main() {
 		}
 	}
 
-	// Print the program name using z01.PrintRune
+	// Print the program name using fmt.Printf (or replace with z01.PrintRune if required)
 	for _, r := range programName {
 		fmt.Printf("%c", r)
 	}
