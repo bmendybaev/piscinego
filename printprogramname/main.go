@@ -1,8 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"os"
+
+	"github.com/01-edu/z01"
 )
 
 func main() {
@@ -17,9 +18,9 @@ func main() {
 		}
 	}
 
-	// Print the program name using fmt.Printf (or replace with z01.PrintRune if required)
+	// Print each character using z01.PrintRune
 	for _, r := range programName {
-		fmt.Printf("%c", r)
+		z01.PrintRune(r)
 	}
-	fmt.Println()
+	z01.PrintRune('\n') // Print a newline at the end
 }
