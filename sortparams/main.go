@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"sort"
 
 	"github.com/01-edu/z01"
 )
@@ -13,8 +12,15 @@ func main() {
 		// Копируем аргументы в новый срез (исключая имя программы os.Args[0])
 		args := os.Args[1:]
 
-		// Сортируем аргументы в порядке ASCII
-		sort.Strings(args)
+		// Реализуем пузырьковую сортировку
+		for i := 0; i < len(args)-1; i++ {
+			for j := 0; j < len(args)-1-i; j++ {
+				if args[j] > args[j+1] {
+					// Меняем элементы местами
+					args[j], args[j+1] = args[j+1], args[j]
+				}
+			}
+		}
 
 		// Выводим отсортированные аргументы
 		for _, arg := range args {
