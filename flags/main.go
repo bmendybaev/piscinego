@@ -46,21 +46,24 @@ func main() {
 
 	// Обработка аргументов
 	for _, arg := range os.Args[1:] {
-		if len(arg) > 3 && (arg[:3] == "-i=" || arg[:9] == "--insert=") {
-			// Извлекаем строку после =
-			equalIndex := 0
+		if (len(arg) > 9 && arg[:9] == "--insert=") || (len(arg) > 3 && arg[:3] == "-i=") {
+			// Проверяем, содержит ли аргумент символ '='
+			equalIndex := -1
 			for i, r := range arg {
 				if r == '=' {
 					equalIndex = i
 					break
 				}
 			}
-			insert = arg[equalIndex+1:]
+			// Если '=' найден, извлекаем строку после него
+			if equalIndex != -1 && equalIndex+1 < len(arg) {
+				insert = arg[equalIndex+1:]
+			}
 		} else if arg == "-o" || arg == "--order" {
 			order = true
 		} else {
 			// Всё остальное считается основной строкой
-			mainString = arg
+			mainString += arg
 		}
 	}
 
