@@ -23,10 +23,10 @@ func sortString(s string) string {
 func printHelp() {
 	helpText := `--insert
   -i
-         This flag inserts the string into the string passed as argument.
+	 This flag inserts the string into the string passed as argument.
 --order
   -o
-         This flag will behave like a boolean, if it is called it will order the argument.
+	 This flag will behave like a boolean, if it is called it will order the argument.
 `
 	for _, r := range helpText {
 		z01.PrintRune(r)
@@ -47,7 +47,7 @@ func main() {
 	// Обработка аргументов
 	for _, arg := range os.Args[1:] {
 		if len(arg) > 3 && (arg[:3] == "-i=" || arg[:9] == "--insert=") {
-			// Обрабатываем вставку: извлекаем строку после = (для -i= или --insert=)
+			// Извлекаем строку после =
 			equalIndex := 0
 			for i, r := range arg {
 				if r == '=' {
