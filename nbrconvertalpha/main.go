@@ -27,6 +27,9 @@ func main() {
 		start = 2
 	}
 
+	// Флаг, чтобы следить за выводом хотя бы одного символа
+	anyOutput := false
+
 	// Проходим по аргументам, начиная с позиции start
 	for i := start; i < len(os.Args); i++ {
 		// Преобразуем аргумент в число с помощью customAtoi
@@ -34,6 +37,7 @@ func main() {
 		if n < 1 || n > 26 {
 			// Если число вне диапазона [1, 26] или аргумент некорректен, печатаем пробел
 			z01.PrintRune(' ')
+			anyOutput = true
 		} else {
 			// Преобразуем позицию в букву
 			var letter rune
@@ -43,9 +47,12 @@ func main() {
 				letter = 'a' + rune(n-1) // Нижний регистр
 			}
 			z01.PrintRune(letter)
+			anyOutput = true
 		}
 	}
 
-	// Перевод строки в конце
-	z01.PrintRune('\n')
+	// Перевод строки только если был вывод
+	if anyOutput {
+		z01.PrintRune('\n')
+	}
 }
