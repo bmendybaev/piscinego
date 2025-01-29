@@ -10,14 +10,14 @@ func PrintNbrBase(nbr int, base string) {
 		return
 	}
 
+	// Длина базы
+	baseLen := len(base)
+
 	// Обрабатываем случай с отрицательным числом
 	if nbr < 0 {
 		z01.PrintRune('-')
 		nbr = -nbr
 	}
-
-	// Вычисляем длину базы
-	baseLen := len(base)
 
 	// Если число равно нулю, выводим первый символ базы
 	if nbr == 0 {
@@ -26,15 +26,17 @@ func PrintNbrBase(nbr int, base string) {
 	}
 
 	// Преобразуем число в строку в указанной базе
-	result := ""
+	var result []rune
 	for nbr > 0 {
 		remainder := nbr % baseLen
-		result = string(base[remainder]) + result
+		result = append([]rune{rune(base[remainder])}, result...)
 		nbr /= baseLen
 	}
 
 	// Печатаем результат
-	printString(result)
+	for _, r := range result {
+		z01.PrintRune(r)
+	}
 }
 
 // Проверка валидности базы
@@ -52,6 +54,7 @@ func isValidBase(base string) bool {
 		}
 		seen[r] = true
 	}
+
 	return true
 }
 
