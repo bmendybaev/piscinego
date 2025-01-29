@@ -1,4 +1,35 @@
-package main
+[13:20, 29.01.2025] capkazakhstan: package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+// isVowel проверяет, является ли символ гласной (y не считается гласной)
+func isVowel(r rune) bool {
+	return r == 'a' || r == 'e' || r == 'i' || r == 'o' || r == 'u' ||
+		r == 'A' || r == 'E' || r == 'I' || r == 'O' || r == 'U'
+}
+
+// reverseVowels зеркально меняет гласные во всей строке
+func reverseVowels(s string) string {
+	runes := []rune(s) // Преобразуем строку в срез рун
+	left, right := 0, len(runes)-1
+
+	for left < right {
+		// Найти первую гласную слева
+		for left < right && !isVowel(runes[left]) {
+			left++
+		}
+		// Найти первую гласную справа
+		for left < right && !isVowel(runes[right]) {
+			right--
+		}
+		// Поменять местами гласные
+		if left < right {
+			runes[left], runes[right] = runes[rig…
+[13:26, 29.01.2025] capkazakhstan: package main
 
 import (
 	"os"
@@ -61,4 +92,5 @@ func main() {
 		z01.PrintRune(r)
 	}
 	z01.PrintRune('\n')
+//d
 }
