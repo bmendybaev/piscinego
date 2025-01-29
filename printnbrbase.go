@@ -59,7 +59,6 @@ func isValidBase(base string) bool {
 		if r == '+' || r == '-' || seen[r] {
 			return false
 		}
-		
 		seen[r] = true
 	}
 	return true
