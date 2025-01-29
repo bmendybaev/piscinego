@@ -6,13 +6,10 @@ func MakeRange(min, max int) []int {
 	}
 
 	size := max - min
-	result := []int{} // Create an empty slice
-
-	// Extend the slice to the required size
-	result = result[:size]
+	result := make([]int, size) // Properly allocate the slice
 
 	// Populate the slice
-	for i := range result {
+	for i := 0; i < size; i++ {
 		result[i] = min + i
 	}
 
