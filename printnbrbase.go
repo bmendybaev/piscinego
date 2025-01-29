@@ -13,10 +13,11 @@ func PrintNbrBase(nbr int, base string) {
 	// Длина базы
 	baseLen := len(base)
 
-	// Обрабатываем случай с минимальным int64 (специальная обработка)
+	// Обрабатываем случай с минимальным значением int64
 	if nbr == -9223372036854775808 {
 		z01.PrintRune('-')
-		PrintNbrBase(9223372036854775808, base)
+		PrintNbrBase(int(nbr/baseLen), base)  // Делаем деление перед вызовом рекурсии
+		z01.PrintRune(rune(base[-(nbr%baseLen)])) // Последний символ базы
 		return
 	}
 
@@ -49,12 +50,10 @@ func PrintNbrBase(nbr int, base string) {
 
 // Проверка валидности базы
 func isValidBase(base string) bool {
-	// База должна содержать минимум 2 символа
 	if len(base) < 2 {
 		return false
 	}
 
-	// Проверяем наличие дублирующихся символов или запрещённых символов (+ или -)
 	seen := make(map[rune]bool)
 	for _, r := range base {
 		if r == '+' || r == '-' || seen[r] {
