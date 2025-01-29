@@ -1,52 +1,62 @@
 package main
 
 import (
-	"fmt"
 	"os"
-	"strings"
+	"github.com/01-edu/z01"
 )
 
 func isVowel(c rune) bool {
 	vowels := "AEIOUaeiou"
-	return strings.ContainsRune(vowels, c)
+	for _, v := range vowels {
+		if v == c {
+			return true
+		}
+	}
+	return false
 }
 
-func mirrorVowels(s string) string {
-	runes := []rune(s)
-	vowelIndices := []int{}
-	vowelChars := []rune{}
-
-	// Collect vowel indices and characters (ignoring spaces)
-	for i, r := range runes {
+func mirrorVowels(s []rune) {
+	var vowels []rune
+	for _, r := range s {
 		if isVowel(r) {
-			vowelIndices = append(vowelIndices, i)
-			vowelChars = append(vowelChars, r)
+			vowels = append(vowels, r)
 		}
 	}
 
-	// Reverse the vowels in place
-	for i, j := 0, len(vowelChars)-1; i < j; i, j = i+1, j-1 {
-		vowelChars[i], vowelChars[j] = vowelChars[j], vowelChars[i]
+	// Reverse collected vowels
+	for i, j := 0, len(vowels)-1; i < j; i, j = i+1, j-1 {
+		vowels[i], vowels[j] = vowels[j], vowels[i]
 	}
 
-	// Replace original vowels with mirrored ones
+	// Replace vowels in original string
 	vowelPos := 0
-	for i := range runes {
-		if isVowel(runes[i]) {
-			runes[i] = vowelChars[vowelPos]
+	for i, r := range s {
+		if isVowel(r) {
+			s[i] = vowels[vowelPos]
 			vowelPos++
 		}
 	}
-
-	return string(runes)
 }
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println()
+		z01.PrintRune('\n')
 		return
 	}
 
-	input := strings.Join(os.Args[1:], " ")
-	fmt.Println(mirrorVowels(input))
+	// Concatenate all arguments with spaces
+	var input []rune
+	for i, arg := range os.Args[1:] {
+		if i > 0 {
+			input = append(input, ' ')
+		}
+		input = append(input, []rune(arg)...)
+	}
+
+	mirrorVowels(input)
+
+	for _, r := range input {
+		z01.PrintRune(r)
+	}
+	z01.PrintRune('\n')
 }
