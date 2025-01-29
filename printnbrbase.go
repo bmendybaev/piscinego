@@ -16,8 +16,8 @@ func PrintNbrBase(nbr int, base string) {
 	// Обрабатываем случай с минимальным значением int64
 	if nbr == -9223372036854775808 {
 		z01.PrintRune('-')
-		PrintNbrBase(int(nbr/baseLen), base)  // Делаем деление перед вызовом рекурсии
-		z01.PrintRune(rune(base[-(nbr%baseLen)])) // Последний символ базы
+		PrintNbrBase(int(nbr/baseLen), base)        // Делаем деление перед вызовом рекурсии
+		z01.PrintRune(rune(base[-(nbr % baseLen)])) // Последний символ базы
 		return
 	}
 
