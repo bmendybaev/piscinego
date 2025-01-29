@@ -2,7 +2,7 @@ package piscine
 
 import "github.com/01-edu/z01"
 
-// PrintNbrBase преобразует и выводит число в заданной системе счисления
+// PrintNbrBase преобразует и выводит число в указанной системе счисления
 func PrintNbrBase(nbr int, base string) {
 	// Проверяем валидность базы
 	if !isValidBase(base) {
@@ -17,10 +17,7 @@ func PrintNbrBase(nbr int, base string) {
 	}
 
 	// Вычисляем длину базы
-	baseLen := 0
-	for range base {
-		baseLen++
-	}
+	baseLen := len(base)
 
 	// Если число равно нулю, выводим первый символ базы
 	if nbr == 0 {
@@ -43,26 +40,18 @@ func PrintNbrBase(nbr int, base string) {
 // Проверка валидности базы
 func isValidBase(base string) bool {
 	// База должна содержать минимум 2 символа
-	baseLen := 0
-	for range base {
-		baseLen++
-	}
-	if baseLen < 2 {
+	if len(base) < 2 {
 		return false
 	}
 
 	// Проверяем наличие дублирующихся символов или запрещённых символов (+ или -)
-	for i, r1 := range base {
-		if r1 == '+' || r1 == '-' {
+	seen := make(map[rune]bool)
+	for _, r := range base {
+		if r == '+' || r == '-' || seen[r] {
 			return false
 		}
-		for j, r2 := range base {
-			if i != j && r1 == r2 {
-				return false
-			}
-		}
+		seen[r] = true
 	}
-
 	return true
 }
 
