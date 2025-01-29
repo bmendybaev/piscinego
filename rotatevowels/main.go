@@ -1,35 +1,40 @@
 package main
 
 import (
+	"fmt"
 	"os"
-
-	"github.com/01-edu/z01"
+	"strings"
 )
 
-// isVowel проверяет, является ли символ гласной (y не считается гласной)
-func isVowel(r rune) bool {
-	return r == 'a' || r == 'e' || r == 'i' || r == 'o' || r == 'u' ||
-		r == 'A' || r == 'E' || r == 'I' || r == 'O' || r == 'U'
+func isVowel(c rune) bool {
+	vowels := "AEIOUaeiou"
+	return strings.ContainsRune(vowels, c)
 }
 
-// rotateVowels зеркально меняет гласные по всей строке, игнорируя пробелы
-func rotateVowels(s string) string {
+func mirrorVowels(s string) string {
 	runes := []rune(s)
-	vowels := []rune{}
+	vowelIndices := []int{}
+	vowelChars := []rune{}
 
-	// Собираем все гласные
-	for _, r := range runes {
+	// Collect vowel indices and characters (ignoring spaces)
+	for i, r := range runes {
 		if isVowel(r) {
-			vowels = append(vowels, r)
+			vowelIndices = append(vowelIndices, i)
+			vowelChars = append(vowelChars, r)
 		}
 	}
 
-	// Переворачиваем порядок гласных
-	vowelIndex := len(vowels) - 1
-	for i := 0; i < len(runes); i++ {
+	// Reverse the vowels in place
+	for i, j := 0, len(vowelChars)-1; i < j; i, j = i+1, j-1 {
+		vowelChars[i], vowelChars[j] = vowelChars[j], vowelChars[i]
+	}
+
+	// Replace original vowels with mirrored ones
+	vowelPos := 0
+	for i := range runes {
 		if isVowel(runes[i]) {
-			runes[i] = vowels[vowelIndex]
-			vowelIndex--
+			runes[i] = vowelChars[vowelPos]
+			vowelPos++
 		}
 	}
 
@@ -37,27 +42,11 @@ func rotateVowels(s string) string {
 }
 
 func main() {
-	// Если нет аргументов, просто выводим новую строку
-	if len(os.Args) <= 1 {
-		z01.PrintRune('\n')
+	if len(os.Args) < 2 {
+		fmt.Println()
 		return
 	}
 
-	// Объединяем все аргументы в одну строку с пробелами
-	combined := ""
-	for i, arg := range os.Args[1:] {
-		combined += arg
-		if i < len(os.Args[1:])-1 {
-			combined += " "
-		}
-	}
-
-	// Меняем гласные по всей строке (пробелы не учитываются)
-	result := rotateVowels(combined)
-
-	// Выводим результат
-	for _, r := range result {
-		z01.PrintRune(r)
-	}
-	z01.PrintRune('\n')
+	input := strings.Join(os.Args[1:], " ")
+	fmt.Println(mirrorVowels(input))
 }
