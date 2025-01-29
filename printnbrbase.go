@@ -13,6 +13,13 @@ func PrintNbrBase(nbr int, base string) {
 	// Длина базы
 	baseLen := len(base)
 
+	// Обрабатываем случай с минимальным int64 (специальная обработка)
+	if nbr == -9223372036854775808 {
+		z01.PrintRune('-')
+		PrintNbrBase(9223372036854775808, base)
+		return
+	}
+
 	// Обрабатываем случай с отрицательным числом
 	if nbr < 0 {
 		z01.PrintRune('-')
@@ -27,10 +34,11 @@ func PrintNbrBase(nbr int, base string) {
 
 	// Преобразуем число в строку в указанной базе
 	var result []rune
-	for nbr > 0 {
-		remainder := nbr % baseLen
+	n := nbr
+	for n > 0 {
+		remainder := n % baseLen
 		result = append([]rune{rune(base[remainder])}, result...)
-		nbr /= baseLen
+		n /= baseLen
 	}
 
 	// Печатаем результат
@@ -54,11 +62,10 @@ func isValidBase(base string) bool {
 		}
 		seen[r] = true
 	}
-
 	return true
 }
 
-// Вывод строки символ за символом
+// Вывод строки
 func printString(s string) {
 	for _, r := range s {
 		z01.PrintRune(r)
