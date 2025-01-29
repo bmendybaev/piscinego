@@ -12,33 +12,38 @@ func isVowel(r rune) bool {
 		r == 'A' || r == 'E' || r == 'I' || r == 'O' || r == 'U'
 }
 
-// reverseVowels зеркально меняет гласные во всей строке
-func reverseVowels(s string) string {
+// rotateVowels зеркально меняет гласные по всей строке, игнорируя пробелы
+func rotateVowels(s string) string {
 	runes := []rune(s)
-	left, right := 0, len(runes)-1
+	vowels := []rune{}
 
-	for left < right {
-		for left < right && !isVowel(runes[left]) {
-			left++
-		}
-		for left < right && !isVowel(runes[right]) {
-			right--
-		}
-		if left < right {
-			runes[left], runes[right] = runes[right], runes[left]
-			left++
-			right--
+	// Собираем все гласные
+	for _, r := range runes {
+		if isVowel(r) {
+			vowels = append(vowels, r)
 		}
 	}
+
+	// Переворачиваем порядок гласных
+	vowelIndex := len(vowels) - 1
+	for i := 0; i < len(runes); i++ {
+		if isVowel(runes[i]) {
+			runes[i] = vowels[vowelIndex]
+			vowelIndex--
+		}
+	}
+
 	return string(runes)
 }
 
 func main() {
+	// Если нет аргументов, просто выводим новую строку
 	if len(os.Args) <= 1 {
 		z01.PrintRune('\n')
 		return
 	}
 
+	// Объединяем все аргументы в одну строку с пробелами
 	combined := ""
 	for i, arg := range os.Args[1:] {
 		combined += arg
@@ -47,8 +52,10 @@ func main() {
 		}
 	}
 
-	result := reverseVowels(combined)
+	// Меняем гласные по всей строке (пробелы не учитываются)
+	result := rotateVowels(combined)
 
+	// Выводим результат
 	for _, r := range result {
 		z01.PrintRune(r)
 	}
