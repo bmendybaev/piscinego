@@ -8,24 +8,28 @@ func AtoiBase(s string, base string) int {
 	}
 
 	baseLen := len(base)
-
-	// Создаём мапу для быстрого поиска индексов символов в базе
-	baseMap := make(map[rune]int)
-	for i, r := range base {
-		baseMap[r] = i
-	}
-
 	result := 0
+
 	// Обрабатываем строку s
 	for _, r := range s {
-		val, exists := baseMap[r]
-		if !exists { // Если символ не найден в базе, число недействительно
+		index := indexInBase(r, base) // Находим индекс символа в базе
+		if index == -1 { // Если символ не найден, возвращаем 0
 			return 0
 		}
-		result = result*baseLen + val
+		result = result*baseLen + index
 	}
 
 	return result
+}
+
+// Функция для поиска индекса символа в строке базы
+func indexInBase(char rune, base string) int {
+	for i, r := range base {
+		if r == char {
+			return i
+		}
+	}
+	return -1 // Если символ не найден, возвращаем -1
 }
 
 // Проверка валидности базы
@@ -34,13 +38,16 @@ func isValidBase(base string) bool {
 		return false
 	}
 
-	seen := make(map[rune]bool)
-	for _, r := range base {
-		if r == '+' || r == '-' || seen[r] {
+	for i, r1 := range base {
+		if r1 == '+' || r1 == '-' {
 			return false
 		}
-		seen[r] = true
+		// Проверяем, нет ли дубликатов символов в базе
+		for j, r2 := range base {
+			if i != j && r1 == r2 {
+				return false
+			}
+		}
 	}
-
 	return true
 }
