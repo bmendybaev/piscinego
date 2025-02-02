@@ -14,23 +14,17 @@ func printString(s string) {
 	}
 }
 
-// Читает и выводит содержимое файла
-func printFile(filename string) bool {
+// Читает и выводит содержимое файла (выходит с ошибкой, если файл не найден)
+func printFile(filename string) {
 	file, err := os.Open(filename)
 	if err != nil {
 		printString("ERROR: " + err.Error() + "\n")
-		return false
+		os.Exit(1) // Если файла нет, сразу выходим с exit status 1
 	}
 	defer file.Close()
 
-	// Копируем содержимое файла в stdout
+	// Читаем файл побайтово и печатаем
 	io.Copy(os.Stdout, file)
-	return true
-}
-
-// Читает stdin и печатает ввод
-func readStdin() {
-	io.Copy(os.Stdout, os.Stdin)
 }
 
 func main() {
@@ -38,21 +32,12 @@ func main() {
 
 	// Если аргументов нет, читаем stdin
 	if len(args) == 0 {
-		readStdin()
+		io.Copy(os.Stdout, os.Stdin)
 		return
 	}
 
-	exitCode := 0 // Код выхода (0 — успех, 1 — ошибка)
-
 	// Читаем файлы по очереди
 	for _, filename := range args {
-		if !printFile(filename) {
-			exitCode = 1
-		}
-	}
-
-	// Если были ошибки, завершаем программу с кодом 1
-	if exitCode != 0 {
-		os.Exit(exitCode)
+		printFile(filename)
 	}
 }
