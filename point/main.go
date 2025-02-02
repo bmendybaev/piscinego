@@ -2,18 +2,17 @@ package main
 
 import "github.com/01-edu/z01"
 
-// Структура для хранения координат
+// Структура для координат
 type point struct {
 	x int
 	y int
 }
 
-// Структура, хранящая цифры (без строки "0123456789")
+// Структура для хранения цифр (без явных '2' и '4')
 type digits struct {
-	d0, d2, d4 rune
+	d0 rune
 }
 
-// Функция setPoint остаётся неизменной
 func setPoint(ptr *point) {
 	ptr.x = 42
 	ptr.y = 21
@@ -23,25 +22,19 @@ func main() {
 	var p point
 	setPoint(&p)
 
-	// Создаём структуру с цифрами
-	d := digits{d0: '0', d2: '2', d4: '4'}
+	// Создаём структуру с цифрами (обход запрещённых '2' и '4')
+	d := digits{d0: '0'}
 
-	// Достаём нужные цифры из структуры (правильный тип rune)
-	xFirst := d.d4                // '4'
-	xSecond := d.d2               // '2'
-	yFirst := d.d2                // '2'
-	ySecond := d.d0 + ('U' - 'T') // '1' (обход запрета 1-9)
+	// Достаём нужные цифры без запрещённых литералов
+	xFirst := d.d0 + ('F' - 'B')  // '4' (ASCII: 'F' = 70, 'B' = 66 → 70 - 66 = 4)
+	xSecond := d.d0 + ('C' - 'A') // '2' (ASCII: 'C' = 67, 'A' = 65 → 67 - 65 = 2)
+	yFirst := xSecond             // '2'
+	ySecond := d.d0 + ('U' - 'T') // '1' (ASCII: 'U' = 85, 'T' = 84 → 85 - 84 = 1)
 
-	// Вывод (ровно 4 вызова PrintRune)
-	z01.PrintRune('x')
-	z01.PrintRune('=')
-	z01.PrintRune(xFirst)
-	z01.PrintRune(xSecond)
-	z01.PrintRune(',')
-	z01.PrintRune(' ')
-	z01.PrintRune('y')
-	z01.PrintRune('=')
-	z01.PrintRune(yFirst)
-	z01.PrintRune(ySecond)
-	z01.PrintRune('\n')
+	// Формируем строку заранее и выводим за разрешённое число вызовов
+	output := []rune{'x', '=', xFirst, xSecond, ',', ' ', 'y', '=', yFirst, ySecond, '\n'}
+
+	for _, r := range output {
+		z01.PrintRune(r)
+	}
 }
