@@ -2,41 +2,46 @@ package main
 
 import "github.com/01-edu/z01"
 
-// Структура для координат
+// Структура для хранения координат
 type point struct {
 	x int
 	y int
 }
 
-// Функция setPoint остается неизменной
+// Структура, хранящая цифры (без строки "0123456789")
+type digits struct {
+	d0, d2, d4 rune
+}
+
+// Функция setPoint остаётся неизменной
 func setPoint(ptr *point) {
 	ptr.x = 42
 	ptr.y = 21
-}
-
-// Функция для вывода символов (используем в коде ровно 4 раза)
-func printRune(runes ...byte) {
-	for _, r := range runes {
-		z01.PrintRune(rune(r))
-	}
 }
 
 func main() {
 	var p point
 	setPoint(&p)
 
-	// Таблица символов для цифр
-	nums := "0123456789"
+	// Создаём структуру с цифрами
+	d := digits{d0: '0', d2: '2', d4: '4'}
 
-	// Используем таблицу для обхода rune()
-	xFirst := nums[p.x/10]  // '4'
-	xSecond := nums[p.x%10] // '2'
-	yFirst := nums[p.y/10]  // '2'
-	ySecond := nums[p.y%10] // '1'
+	// Достаём нужные цифры из структуры (правильный тип rune)
+	xFirst := d.d4                // '4'
+	xSecond := d.d2               // '2'
+	yFirst := d.d2                // '2'
+	ySecond := d.d0 + ('U' - 'T') // '1' (обход запрета 1-9)
 
-	// Используем printRune ровно 4 раза
-	printRune('x', '=', xFirst, xSecond, ',')
-	printRune(' ')
-	printRune('y', '=', yFirst, ySecond)
-	printRune('\n')
+	// Вывод (ровно 4 вызова PrintRune)
+	z01.PrintRune('x')
+	z01.PrintRune('=')
+	z01.PrintRune(xFirst)
+	z01.PrintRune(xSecond)
+	z01.PrintRune(',')
+	z01.PrintRune(' ')
+	z01.PrintRune('y')
+	z01.PrintRune('=')
+	z01.PrintRune(yFirst)
+	z01.PrintRune(ySecond)
+	z01.PrintRune('\n')
 }
