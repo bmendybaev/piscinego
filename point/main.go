@@ -12,31 +12,28 @@ func setPoint(ptr *point) {
 	ptr.y = 21
 }
 
-func printRuneSequence(s string) {
+func printString(s string) {
 	for _, r := range s {
 		z01.PrintRune(r)
 	}
 }
 
-func main() {
-	points := &point{}
-	setPoint(points)
-
-	printRuneSequence("x = ")
-	printRuneSequence(toString(points.x))
-	printRuneSequence(", y = ")
-	printRuneSequence(toString(points.y))
-	printRuneSequence("\n")
+func printPoint(p *point) {
+	printString("x = ")
+	printInt(p.x)
+	printString(", y = ")
+	printInt(p.y)
+	z01.PrintRune('\n')
 }
 
-func toString(n int) string {
+func printInt(n int) {
 	if n == 0 {
-		return "0"
+		z01.PrintRune('0')
+		return
 	}
 
-	result := ""
 	if n < 0 {
-		result += "-"
+		z01.PrintRune('-')
 		n = -n
 	}
 
@@ -47,10 +44,14 @@ func toString(n int) string {
 
 	for div > 0 {
 		digit := n / div
-		result += string('0' + digit)
+		z01.PrintRune('0' + rune(digit))
 		n %= div
 		div /= 10
 	}
+}
 
-	return result
+func main() {
+	points := &point{}
+	setPoint(points)
+	printPoint(points)
 }
