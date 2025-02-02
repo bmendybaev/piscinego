@@ -14,10 +14,10 @@ func setPoint(ptr *point) {
 	ptr.y = 21
 }
 
-// Обертка для PrintRune (используем в коде ровно 4 раза)
-func printRune(runes ...rune) {
+// Функция для вывода символов (используем в коде ровно 4 раза)
+func printRune(runes ...byte) {
 	for _, r := range runes {
-		z01.PrintRune(r)
+		z01.PrintRune(rune(r))
 	}
 }
 
@@ -25,11 +25,14 @@ func main() {
 	var p point
 	setPoint(&p)
 
-	// Разбиваем числа 42 и 21 на отдельные символы
-	xFirst := '0' + rune(p.x/10)  // '4'
-	xSecond := '0' + rune(p.x%10) // '2'
-	yFirst := '0' + rune(p.y/10)  // '2'
-	ySecond := '0' + rune(p.y%10) // '1'
+	// Таблица символов для цифр
+	nums := "0123456789"
+
+	// Используем таблицу для обхода rune()
+	xFirst := nums[p.x/10]  // '4'
+	xSecond := nums[p.x%10] // '2'
+	yFirst := nums[p.y/10]  // '2'
+	ySecond := nums[p.y%10] // '1'
 
 	// Используем printRune ровно 4 раза
 	printRune('x', '=', xFirst, xSecond, ',')
