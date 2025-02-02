@@ -22,12 +22,8 @@ func main() {
 	z01.PrintRune('=')
 	z01.PrintRune(' ')
 
-	// Workaround: Convert numbers manually using a slice
-	digits := []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
-
 	// Print x value (42)
-	z01.PrintRune([]rune(digits[points.x/10])[0])
-	z01.PrintRune([]rune(digits[points.x%10])[0])
+	printNumber(points.x)
 
 	// Print ", y = "
 	z01.PrintRune(',')
@@ -38,9 +34,15 @@ func main() {
 	z01.PrintRune(' ')
 
 	// Print y value (21)
-	z01.PrintRune([]rune(digits[points.y/10])[0])
-	z01.PrintRune([]rune(digits[points.y%10])[0])
+	printNumber(points.y)
 
 	// Print newline
 	z01.PrintRune('\n')
+}
+
+func printNumber(n int) {
+	if n > 9 {
+		z01.PrintRune('0' + rune(n/10)) // First digit
+	}
+	z01.PrintRune('0' + rune(n%10)) // Second digit
 }
