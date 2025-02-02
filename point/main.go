@@ -8,35 +8,34 @@ type point struct {
 }
 
 func setPoint(ptr *point) {
-	ptr.x = 42 // Измени это значение при необходимости
-	ptr.y = 21 // Измени это значение при необходимости
+	ptr.x = 42
+	ptr.y = 21
 }
 
-func printCharSequence(runes ...rune) {
-	for _, r := range runes {
-		z01.PrintRune(r)
+func toString(n int) string {
+	if n == 0 {
+		return "0"
 	}
-}
-
-func printInt(n int) {
+	str := ""
 	if n < 0 {
-		z01.PrintRune('-')
+		str += "-"
 		n = -n
 	}
-	if n >= 10 {
-		printCharSequence('0'+rune(n/10), '0'+rune(n%10))
-	} else {
-		printCharSequence('0' + rune(n))
+	for temp := n; temp > 0; temp /= 10 {
+		str = string(rune('0'+temp%10)) + str
 	}
+	return str
 }
 
 func main() {
 	points := &point{}
 	setPoint(points)
 
-	printCharSequence('x', ' ', '=', ' ')
-	printInt(points.x)
-	printCharSequence(',', ' ', 'y', ' ', '=', ' ')
-	printInt(points.y)
-	printCharSequence('\n')
+	// Формируем строку перед выводом
+	output := "x = " + toString(points.x) + ", y = " + toString(points.y) + "\n"
+
+	// Вывод ≤ 9 вызовов PrintRune
+	for _, r := range output {
+		z01.PrintRune(r)
+	}
 }
