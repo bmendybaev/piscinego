@@ -1,10 +1,6 @@
 package main
 
-import (
-	"fmt"
-
-	"github.com/01-edu/z01"
-)
+import "github.com/01-edu/z01"
 
 type point struct {
 	x int
@@ -16,15 +12,31 @@ func setPoint(ptr *point) {
 	ptr.y = 21
 }
 
-func printNumber(n int) {
-	digits := "0123456789"
+func printRuneSequence(s string) {
+	for _, r := range s {
+		z01.PrintRune(r)
+	}
+}
+
+func main() {
+	points := &point{}
+	setPoint(points)
+
+	printRuneSequence("x = ")
+	printRuneSequence(toString(points.x))
+	printRuneSequence(", y = ")
+	printRuneSequence(toString(points.y))
+	printRuneSequence("\n")
+}
+
+func toString(n int) string {
 	if n == 0 {
-		z01.PrintRune('0')
-		return
+		return "0"
 	}
 
+	result := ""
 	if n < 0 {
-		z01.PrintRune('-')
+		result += "-"
 		n = -n
 	}
 
@@ -34,20 +46,11 @@ func printNumber(n int) {
 	}
 
 	for div > 0 {
-		z01.PrintRune(rune(digits[n/div]))
+		digit := n / div
+		result += string('0' + digit)
 		n %= div
 		div /= 10
 	}
-}
 
-func main() {
-	points := &point{}
-
-	setPoint(points)
-
-	fmt.Print("x = ")
-	printNumber(points.x)
-	fmt.Print(", y = ")
-	printNumber(points.y)
-	fmt.Print("\n")
+	return result
 }
