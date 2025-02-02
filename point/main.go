@@ -17,26 +17,28 @@ func main() {
 	setPoint(points)
 
 	// Print "x = "
-	z01.PrintRune('x')
-	z01.PrintRune(' ')
-	z01.PrintRune('=')
-	z01.PrintRune(' ')
+	str := "x = "
+	for i := 0; i < len(str); i++ {
+		z01.PrintRune(rune(str[i]))
+	}
 
-	// Print 42 without illegal operations
-	z01.PrintRune('4')
-	z01.PrintRune('2')
+	// Convert x (42) to string and print
+	xStr := []byte{byte('0' + points.x/10), byte('0' + points.x%10)}
+	for i := 0; i < len(xStr); i++ {
+		z01.PrintRune(rune(xStr[i]))
+	}
 
 	// Print ", y = "
-	z01.PrintRune(',')
-	z01.PrintRune(' ')
-	z01.PrintRune('y')
-	z01.PrintRune(' ')
-	z01.PrintRune('=')
-	z01.PrintRune(' ')
+	str = ", y = "
+	for i := 0; i < len(str); i++ {
+		z01.PrintRune(rune(str[i]))
+	}
 
-	// Print 21 without illegal operations
-	z01.PrintRune('2')
-	z01.PrintRune('1')
+	// Convert y (21) to string and print
+	yStr := []byte{byte('0' + points.y/10), byte('0' + points.y%10)}
+	for i := 0; i < len(yStr); i++ {
+		z01.PrintRune(rune(yStr[i]))
+	}
 
 	// Print newline
 	z01.PrintRune('\n')
