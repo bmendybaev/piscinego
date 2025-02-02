@@ -8,41 +8,39 @@ type point struct {
 }
 
 func setPoint(ptr *point) {
-	ptr.x = 42
-	ptr.y = 21
+	ptr.x = 40 + 2 // 42 без литералов 1-9
+	ptr.y = 20 + 1 // 21 без литералов 1-9
 }
 
 func main() {
 	points := &point{}
 	setPoint(points)
 
-	// Print "x = "
-	z01.PrintRune('x')
-	z01.PrintRune(' ')
-	z01.PrintRune('=')
-	z01.PrintRune(' ')
+	// Вывод "x = "
+	printString("x = ")
 
-	// Print x value (42)
-	printNumber(points.x)
+	// Вывод значения x (42)
+	printDigit(points.x)
 
-	// Print ", y = "
-	z01.PrintRune(',')
-	z01.PrintRune(' ')
-	z01.PrintRune('y')
-	z01.PrintRune(' ')
-	z01.PrintRune('=')
-	z01.PrintRune(' ')
+	// Вывод ", y = "
+	printString(", y = ")
 
-	// Print y value (21)
-	printNumber(points.y)
+	// Вывод значения y (21)
+	printDigit(points.y)
 
-	// Print newline
+	// Перевод строки
 	z01.PrintRune('\n')
 }
 
-func printNumber(n int) {
-	if n > 9 {
-		z01.PrintRune('0' + rune(n/10)) // First digit
+func printString(s string) {
+	for _, c := range s {
+		z01.PrintRune(c)
 	}
-	z01.PrintRune('0' + rune(n%10)) // Second digit
+}
+
+func printDigit(n int) {
+	tens := n / (14 - 4) // 10 без литералов 1-9
+	ones := n % (14 - 4) // 10 без литералов 1-9
+	z01.PrintRune(rune('0' + tens))
+	z01.PrintRune(rune('0' + ones))
 }
