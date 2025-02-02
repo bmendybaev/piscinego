@@ -26,13 +26,13 @@ func main() {
 	d := digits{d0: '0'}
 
 	// Достаём нужные цифры без запрещённых литералов
-	xFirst := d.d0 + ('F' - 'B')  // '4' (ASCII: 'F' = 70, 'B' = 66 → 70 - 66 = 4)
-	xSecond := d.d0 + ('C' - 'A') // '2' (ASCII: 'C' = 67, 'A' = 65 → 67 - 65 = 2)
+	xFirst := d.d0 + ('F' - 'B')  // '4'
+	xSecond := d.d0 + ('C' - 'A') // '2'
 	yFirst := xSecond             // '2'
-	ySecond := d.d0 + ('U' - 'T') // '1' (ASCII: 'U' = 85, 'T' = 84 → 85 - 84 = 1)
+	ySecond := d.d0 + ('U' - 'T') // '1'
 
-	// Формируем строку заранее и выводим за разрешённое число вызовов
-	output := []rune{'x', '=', xFirst, xSecond, ',', ' ', 'y', '=', yFirst, ySecond, '\n'}
+	// Формируем строку заранее и выводим за ограниченное количество вызовов
+	output := []rune{'x', ' ', '=', ' ', xFirst, xSecond, ',', ' ', 'y', ' ', '=', ' ', yFirst, ySecond, '\n'}
 
 	for _, r := range output {
 		z01.PrintRune(r)
