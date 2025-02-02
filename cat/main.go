@@ -1,14 +1,13 @@
 package main
 
 import (
-	"bufio"
 	"io"
 	"os"
 
 	"github.com/01-edu/z01"
 )
 
-// Функция для печати строки через z01.PrintRune
+// Функция для вывода строки через z01.PrintRune
 func printString(s string) {
 	for _, r := range s {
 		z01.PrintRune(r)
@@ -24,26 +23,13 @@ func printFile(filename string) {
 	}
 	defer file.Close()
 
-	reader := bufio.NewReader(file)
-	for {
-		line, err := reader.ReadString('\n')
-		printString(line)
-		if err == io.EOF {
-			break
-		}
-	}
+	// Копируем файл в stdout без bufio
+	io.Copy(os.Stdout, file)
 }
 
 // Читает stdin и выводит обратно
 func readStdin() {
-	reader := bufio.NewReader(os.Stdin)
-	for {
-		line, err := reader.ReadString('\n')
-		printString(line)
-		if err == io.EOF {
-			break
-		}
-	}
+	io.Copy(os.Stdout, os.Stdin)
 }
 
 func main() {
