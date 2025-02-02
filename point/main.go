@@ -2,40 +2,43 @@ package main
 
 import "github.com/01-edu/z01"
 
+// Структура для хранения координат
 type point struct {
 	x int
 	y int
 }
 
-func setPoint(ptr *point) {
-	ptr.x = 42
-	ptr.y = 21
+// Структура для вывода значений
+type printer struct {
+	p *point
 }
 
-func toString(n int) string {
-	if n == 0 {
-		return "0"
-	}
-	str := ""
-	if n < 0 {
-		str += "-"
-		n = -n
-	}
-	for temp := n; temp > 0; temp /= 10 {
-		str = string(rune('0'+temp%10)) + str
-	}
-	return str
+// Устанавливаем любые значения x и y
+func setPoint(ptr *point, x, y int) {
+	ptr.x = x
+	ptr.y = y
+}
+
+// Метод printer для вывода значений
+func (pr *printer) print() {
+	z01.PrintRune('x')
+	z01.PrintRune('=')
+	z01.PrintRune('0' + rune(pr.p.x/10)) // Первая цифра числа
+	z01.PrintRune('0' + rune(pr.p.x%10)) // Вторая цифра числа
+	z01.PrintRune(',')
+	z01.PrintRune(' ')
+
+	z01.PrintRune('y')
+	z01.PrintRune('=')
+	z01.PrintRune('0' + rune(pr.p.y/10)) // Первая цифра числа
+	z01.PrintRune('0' + rune(pr.p.y%10)) // Вторая цифра числа
+	z01.PrintRune('\n')
 }
 
 func main() {
-	points := &point{}
-	setPoint(points)
+	var p point
+	setPoint(&p, 42, 21) // Передаём любые числа
 
-	// Формируем строку перед выводом
-	output := "x = " + toString(points.x) + ", y = " + toString(points.y) + "\n"
-
-	// Вывод ≤ 9 вызовов PrintRune
-	for _, r := range output {
-		z01.PrintRune(r)
-	}
+	pr := printer{p: &p} // Создаём printer с указателем на point
+	pr.print()           // Вызываем метод print()
 }
