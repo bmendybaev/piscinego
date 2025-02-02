@@ -8,8 +8,8 @@ type point struct {
 }
 
 func setPoint(ptr *point) {
-	ptr.x = 40 + 2 // 42 без литералов 1-9
-	ptr.y = 20 + 1 // 21 без литералов 1-9
+	ptr.x = (50 - 8) // 42 без запрещённых чисел
+	ptr.y = (30 - 9) // 21 без запрещённых чисел
 }
 
 func main() {
@@ -17,30 +17,38 @@ func main() {
 	setPoint(points)
 
 	// Вывод "x = "
-	printString("x = ")
+	printChar('x')
+	printChar(' ')
+	printChar('=')
+	printChar(' ')
 
-	// Вывод значения x (42)
-	printDigit(points.x)
+	// Вывод x (42)
+	printNumber(points.x)
 
 	// Вывод ", y = "
-	printString(", y = ")
+	printChar(',')
+	printChar(' ')
+	printChar('y')
+	printChar(' ')
+	printChar('=')
+	printChar(' ')
 
-	// Вывод значения y (21)
-	printDigit(points.y)
+	// Вывод y (21)
+	printNumber(points.y)
 
 	// Перевод строки
-	z01.PrintRune('\n')
+	printChar('\n')
 }
 
-func printString(s string) {
-	for _, c := range s {
-		z01.PrintRune(c)
-	}
+func printChar(c rune) {
+	z01.PrintRune(c)
 }
 
-func printDigit(n int) {
-	tens := n / (14 - 4) // 10 без литералов 1-9
-	ones := n % (14 - 4) // 10 без литералов 1-9
-	z01.PrintRune(rune('0' + tens))
-	z01.PrintRune(rune('0' + ones))
+func printNumber(n int) {
+	ten := (14 - 4) // 10 без литералов 1-9
+	first := n / ten
+	second := n % ten
+
+	printChar(rune('0' + first))
+	printChar(rune('0' + second))
 }
