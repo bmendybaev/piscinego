@@ -8,19 +8,8 @@ type point struct {
 }
 
 func setPoint(ptr *point) {
-	ptr.x = 42 // Change this value as needed
-	ptr.y = 21 // Change this value as needed
-}
-
-func main() {
-	points := &point{}
-	setPoint(points)
-
-	printCharSequence('x', '=')
-	printInt(points.x)
-	printCharSequence(',', ' ', 'y', '=')
-	printInt(points.y)
-	printCharSequence('\n')
+	ptr.x = 42 // Измени это значение при необходимости
+	ptr.y = 21 // Измени это значение при необходимости
 }
 
 func printCharSequence(runes ...rune) {
@@ -39,4 +28,15 @@ func printInt(n int) {
 	} else {
 		printCharSequence('0' + rune(n))
 	}
+}
+
+func main() {
+	points := &point{}
+	setPoint(points)
+
+	printCharSequence('x', ' ', '=', ' ')
+	printInt(points.x)
+	printCharSequence(',', ' ', 'y', ' ', '=', ' ')
+	printInt(points.y)
+	printCharSequence('\n')
 }
