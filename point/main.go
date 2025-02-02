@@ -14,8 +14,8 @@ type digits struct {
 }
 
 func setPoint(ptr *point) {
-	ptr.x = 42
-	ptr.y = 21
+	ptr.x = 87
+	ptr.y = 23
 }
 
 func main() {
