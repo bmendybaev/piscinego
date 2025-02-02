@@ -14,32 +14,38 @@ func setPoint(ptr *point) {
 	ptr.y = 21
 }
 
-// Function to print numbers without fmt
-func printNumber(n int) {
+func printChar(c byte) {
+	z01.PrintRune(rune(c))
+}
+
+func printStr(s string) {
+	for i := 0; i < len(s); i++ {
+		printChar(s[i])
+	}
+}
+
+func printInt(n int) {
 	if n == 0 {
-		z01.PrintRune('0')
+		printChar('0')
 		return
 	}
 
 	if n < 0 {
-		z01.PrintRune('-')
+		printChar('-')
 		n = -n
 	}
 
-	var digits []rune
+	var rev [10]byte
+	idx := 0
+
 	for n > 0 {
-		digits = append([]rune{rune(n%10) + '0'}, digits...)
+		rev[idx] = byte(n%10) + '0'
 		n /= 10
+		idx++
 	}
 
-	for _, d := range digits {
-		z01.PrintRune(d)
-	}
-}
-
-func printString(s string) {
-	for _, r := range s {
-		z01.PrintRune(r)
+	for i := idx - 1; i >= 0; i-- {
+		printChar(rev[i])
 	}
 }
 
@@ -48,9 +54,9 @@ func main() {
 
 	setPoint(points)
 
-	printString("x = ")
-	printNumber(points.x)
-	printString(", y = ")
-	printNumber(points.y)
-	z01.PrintRune('\n')
+	printStr("x = ")
+	printInt(points.x)
+	printStr(", y = ")
+	printInt(points.y)
+	printChar('\n')
 }
