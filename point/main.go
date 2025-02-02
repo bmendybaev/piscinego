@@ -17,28 +17,29 @@ func main() {
 	setPoint(points)
 
 	// Print "x = "
-	str := "x = "
-	for i := 0; i < len(str); i++ {
-		z01.PrintRune(rune(str[i]))
-	}
+	z01.PrintRune('x')
+	z01.PrintRune(' ')
+	z01.PrintRune('=')
+	z01.PrintRune(' ')
 
-	// Convert x (42) to string and print
-	xStr := []byte{byte('0' + points.x/10), byte('0' + points.x%10)}
-	for i := 0; i < len(xStr); i++ {
-		z01.PrintRune(rune(xStr[i]))
-	}
+	// Workaround: Convert numbers manually using a slice
+	digits := []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
+
+	// Print x value (42)
+	z01.PrintRune([]rune(digits[points.x/10])[0])
+	z01.PrintRune([]rune(digits[points.x%10])[0])
 
 	// Print ", y = "
-	str = ", y = "
-	for i := 0; i < len(str); i++ {
-		z01.PrintRune(rune(str[i]))
-	}
+	z01.PrintRune(',')
+	z01.PrintRune(' ')
+	z01.PrintRune('y')
+	z01.PrintRune(' ')
+	z01.PrintRune('=')
+	z01.PrintRune(' ')
 
-	// Convert y (21) to string and print
-	yStr := []byte{byte('0' + points.y/10), byte('0' + points.y%10)}
-	for i := 0; i < len(yStr); i++ {
-		z01.PrintRune(rune(yStr[i]))
-	}
+	// Print y value (21)
+	z01.PrintRune([]rune(digits[points.y/10])[0])
+	z01.PrintRune([]rune(digits[points.y%10])[0])
 
 	// Print newline
 	z01.PrintRune('\n')
