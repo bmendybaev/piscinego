@@ -2,59 +2,64 @@ package main
 
 import "github.com/01-edu/z01"
 
-type digit struct {
-	first  int
-	second int
+// Структура для хранения значений
+type Values struct {
+	FortyTwo  int
+	TwentyOne int
 }
 
+// Структура точки
 type point struct {
-	x digit
-	y digit
+	x, y int
 }
 
-func setPoint(ptr *point) {
-	ptr.x.first = (50 - 8) / (14 - 4)  // 4 (без 1-9)
-	ptr.x.second = (50 - 8) % (14 - 4) // 2 (без 1-9)
-	ptr.y.first = (30 - 9) / (14 - 4)  // 2 (без 1-9)
-	ptr.y.second = (30 - 9) % (14 - 4) // 1 (без 1-9)
+// Функция, изменяющая значения через структуру Values
+func setPoint(ptr *point, v Values) {
+	ptr.x = v.FortyTwo
+	ptr.y = v.TwentyOne
+}
+
+// Функция для вывода числа
+func printNumber(n int) {
+	if n == 0 {
+		z01.PrintRune('0')
+		return
+	}
+	if n < 0 {
+		z01.PrintRune('-')
+		n = -n
+	}
+	var digits []rune
+	for n > 0 {
+		digits = append([]rune{rune(n%10) + '0'}, digits...)
+		n /= 10
+	}
+	for _, d := range digits {
+		z01.PrintRune(d)
+	}
 }
 
 func main() {
-	points := &point{}
-	setPoint(points)
+	// Создаем экземпляр структуры Values с нужными значениями
+	values := Values{
+		FortyTwo:  42,
+		TwentyOne: 21,
+	}
 
-	// Вывод "x = "
+	points := &point{}
+	setPoint(points, values)
+
 	z01.PrintRune('x')
 	z01.PrintRune(' ')
 	z01.PrintRune('=')
 	z01.PrintRune(' ')
-
-	// Вывод x (42)
-	printDigit(points.x.first)
-	printDigit(points.x.second)
-
-	// Вывод ", y = "
+	printNumber(points.x)
 	z01.PrintRune(',')
 	z01.PrintRune(' ')
 	z01.PrintRune('y')
 	z01.PrintRune(' ')
 	z01.PrintRune('=')
 	z01.PrintRune(' ')
-
-	// Вывод y (21)
-	printDigit(points.y.first)
-	printDigit(points.y.second)
-
-	// Перевод строки
+	printNumber(points.y)
 	z01.PrintRune('\n')
-}
-
-func printDigit(d int) {
-	if d == (14-4)/(14-4) { // 1 без литералов
-		z01.PrintRune('1')
-	} else if d == (50-8)/(14-4) { // 4 без литералов
-		z01.PrintRune('4')
-	} else if d == (50-8)%(14-4) { // 2 без литералов
-		z01.PrintRune('2')
-	}
 }
