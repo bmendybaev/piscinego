@@ -8,50 +8,57 @@ type point struct {
 }
 
 func setPoint(ptr *point) {
-	ptr.x = 42
-	ptr.y = 21
+	ptr.x = 42 // Change this value as needed
+	ptr.y = 21 // Change this value as needed
 }
 
-func printString(s string) {
-	for _, r := range s {
-		z01.PrintRune(r)
+func printDigit(d int) {
+	switch d {
+	case 0:
+		z01.PrintRune('0')
+	case 1:
+		z01.PrintRune('1')
+	case 2:
+		z01.PrintRune('2')
+	case 3:
+		z01.PrintRune('3')
+	case 4:
+		z01.PrintRune('4')
+	case 5:
+		z01.PrintRune('5')
+	case 6:
+		z01.PrintRune('6')
+	case 7:
+		z01.PrintRune('7')
+	case 8:
+		z01.PrintRune('8')
+	case 9:
+		z01.PrintRune('9')
 	}
-}
-
-func printPoint(p *point) {
-	printString("x = ")
-	printInt(p.x)
-	printString(", y = ")
-	printInt(p.y)
-	z01.PrintRune('\n')
 }
 
 func printInt(n int) {
-	if n == 0 {
-		z01.PrintRune('0')
-		return
-	}
-
 	if n < 0 {
 		z01.PrintRune('-')
 		n = -n
 	}
-
-	div := 1
-	for i := n; i > 9; i /= 10 {
-		div *= 10
+	if n >= 10 {
+		printDigit(n / 10)
 	}
-
-	for div > 0 {
-		digit := n / div
-		z01.PrintRune('0' + rune(digit))
-		n %= div
-		div /= 10
-	}
+	printDigit(n % 10)
 }
 
 func main() {
 	points := &point{}
 	setPoint(points)
-	printPoint(points)
+
+	z01.PrintRune('x')
+	z01.PrintRune('=')
+	printInt(points.x)
+	z01.PrintRune(',')
+	z01.PrintRune(' ')
+	z01.PrintRune('y')
+	z01.PrintRune('=')
+	printInt(points.y)
+	z01.PrintRune('\n')
 }
