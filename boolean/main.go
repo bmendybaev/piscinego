@@ -1,7 +1,18 @@
 package main
 
 import (
+	"os"
+
 	"github.com/01-edu/z01"
+)
+
+type boolean bool
+
+const (
+	yes     boolean = true
+	no      boolean = false
+	EvenMsg         = "I have an even number of arguments"
+	OddMsg          = "I have an odd number of arguments"
 )
 
 func printStr(s string) {
@@ -12,15 +23,16 @@ func printStr(s string) {
 }
 
 func isEven(nbr int) boolean {
-	if even(nbr) == 1 {
+	if nbr%2 == 0 {
 		return yes
-	} else {
-		return no
 	}
+	return no
 }
 
 func main() {
-	if isEven(lengthOfArg) == 1 {
+	lengthOfArg := len(os.Args[1:])
+
+	if isEven(lengthOfArg) == yes {
 		printStr(EvenMsg)
 	} else {
 		printStr(OddMsg)
