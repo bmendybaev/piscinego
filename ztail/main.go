@@ -12,7 +12,7 @@ func printStr(s string) {
 	}
 }
 
-// Функция для печати числа
+// Функция для печати числа ллолдо
 func printInt(n int) {
 	if n == 0 {
 		z01.PrintRune('0')
