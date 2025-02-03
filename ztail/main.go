@@ -2,8 +2,10 @@ package main
 
 import (
 	"os"
+
 	"github.com/01-edu/z01"
 )
+
 
 // Функция для печати строки
 func printStr(s string) {
