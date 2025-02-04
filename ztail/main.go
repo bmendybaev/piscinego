@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+
 	"github.com/01-edu/z01"
 )
 
@@ -12,34 +13,12 @@ func printStr(s string) {
 	}
 }
 
-// Функция для печати числа
-func printInt(n int) {
-	if n == 0 {
-		z01.PrintRune('0')
-		return
-	}
-	if n < 0 {
-		z01.PrintRune('-')
-		n = -n
-	}
-	var rev [10]rune
-	idx := 0
-	for n > 0 {
-		rev[idx] = '0' + rune(n%10)
-		n /= 10
-		idx++
-	}
-	for i := idx - 1; i >= 0; i-- {
-		z01.PrintRune(rev[i])
-	}
-}
-
 // Функция для преобразования строки в число (без strconv)
 func atoi(s string) (int, bool) {
 	result := 0
 	for _, r := range s {
 		if r < '0' || r > '9' {
-			return 0, false // Ошибка: не цифра
+			return 0, false
 		}
 		result = result*10 + int(r-'0')
 	}
@@ -57,7 +36,6 @@ func printTail(filename string, count int) bool {
 	}
 	defer file.Close()
 
-	// Получаем размер файла
 	info, err := file.Stat()
 	if err != nil {
 		printStr("open ")
@@ -66,13 +44,27 @@ func printTail(filename string, count int) bool {
 		return false
 	}
 
+	if info.Size() == 0 {
+		return true
+	}
+
 	start := info.Size() - int64(count)
 	if start < 0 {
 		start = 0
 	}
-	file.Seek(start, 0)
+	_, err = file.Seek(start, 0)
+	if err != nil {
+		printStr("error seeking file\n")
+		return false
+	}
+
 	buffer := make([]byte, count)
-	n, _ := file.Read(buffer)
+	n, err := file.Read(buffer)
+	if err != nil {
+		printStr("error reading file\n")
+		return false
+	}
+
 	for i := 0; i < n; i++ {
 		z01.PrintRune(rune(buffer[i]))
 	}
@@ -98,12 +90,14 @@ func main() {
 		os.Exit(1)
 	}
 
+	exitCode := 0
 	firstFilePrinted := false
 	for _, filename := range files {
 		if _, err := os.Stat(filename); os.IsNotExist(err) {
 			printStr("open ")
 			printStr(filename)
 			printStr(": no such file or directory\n")
+			exitCode = 1
 			continue
 		}
 		if firstFilePrinted {
@@ -113,6 +107,9 @@ func main() {
 		printStr("==> ")
 		printStr(filename)
 		printStr(" <==\n")
-		printTail(filename, count)
+		if !printTail(filename, count) {
+			exitCode = 1
+		}
 	}
+	os.Exit(exitCode)
 }
