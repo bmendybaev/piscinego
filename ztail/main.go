@@ -77,28 +77,28 @@ func main() {
 	}
 
 	exitCode := 0
-	firstOutput := false
-	errorCount := 0
+	firstFilePrinted := false
+	errorPrinted := false
 
 	for _, filename := range files {
 		if _, err := os.Stat(filename); os.IsNotExist(err) {
-			if errorCount > 0 {
-				fmt.Fprintln(os.Stderr) // Добавляем перенос строки между ошибками
+			if errorPrinted {
+				fmt.Fprintln(os.Stderr) // Перенос строки между ошибками
 			}
 			fmt.Fprintf(os.Stderr, "open %s: no such file or directory\n", filename)
-			errorCount++
+			errorPrinted = true
 			exitCode = 1
 			continue
 		}
 
-		if firstOutput || errorCount > 0 {
-			fmt.Println() // Перенос строки перед заголовком, если были ошибки или предыдущие файлы
+		if firstFilePrinted || errorPrinted {
+			fmt.Println() // Перенос строки перед заголовком файла
 		}
 
 		fmt.Printf("==> %s <==\n", filename)
 		printTail(filename, count)
 
-		firstOutput = true
+		firstFilePrinted = true
 	}
 
 	os.Exit(exitCode)
