@@ -26,14 +26,14 @@ func atoi(s string) (int, bool) {
 func printTail(filename string, count int) bool {
 	file, err := os.Open(filename)
 	if err != nil {
-		printStr("open " + filename + ": no such file or directory\n\n")
+		printStr("open " + filename + ": no such file or directory\n")
 		return false
 	}
 	defer file.Close()
 
 	info, err := file.Stat()
 	if err != nil {
-		printStr("open " + filename + ": error retrieving file info\n\n")
+		printStr("open " + filename + ": error retrieving file info\n")
 		return false
 	}
 
@@ -47,14 +47,14 @@ func printTail(filename string, count int) bool {
 	}
 	_, err = file.Seek(start, 0)
 	if err != nil {
-		printStr("error seeking file\n\n")
+		printStr("error seeking file\n")
 		return false
 	}
 
 	buffer := make([]byte, count)
 	n, err := file.Read(buffer)
 	if err != nil {
-		printStr("error reading file\n\n")
+		printStr("error reading file\n")
 		return false
 	}
 
