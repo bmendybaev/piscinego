@@ -35,7 +35,7 @@ func printInt(n int) {
 	}
 }
 
-// Функция для преобразования строки в число (без strconv)
+// Функция для преобразования строки в число (без strconv). 
 func atoi(s string) (int, bool) {
 	result := 0
 	for _, r := range s {
