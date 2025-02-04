@@ -5,100 +5,127 @@ import (
 	"os"
 )
 
-// Функция для преобразования строки в число (без strconv)
-func atoi(s string) (int, bool) {
-	result := 0
-	for _, r := range s {
-		if r < '0' || r > '9' {
-			return 0, false
-		}
-		result = result*10 + int(r-'0')
-	}
-	return result, true
-}
-
-// Функция для печати последних N байтов файла
-func printTail(filename string, count int) bool {
-	file, err := os.Open(filename)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "open %s: no such file or directory\n", filename)
-		return false
-	}
-	defer file.Close()
-
-	info, err := file.Stat()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "open %s: error retrieving file info\n", filename)
-		return false
-	}
-
-	if info.Size() == 0 {
-		return true
-	}
-
-	start := info.Size() - int64(count)
-	if start < 0 {
-		start = 0
-	}
-	if _, err = file.Seek(start, 0); err != nil { // Исправлено: теперь err проверяется
-		fmt.Fprintln(os.Stderr, "error seeking file")
-		return false
-	}
-
-	buffer := make([]byte, count)
-	n, err := file.Read(buffer)
-	if err != nil {
-		fmt.Fprintln(os.Stderr, "error reading file")
-		return false
-	}
-
-	fmt.Print(string(buffer[:n]))
-	return true
-}
-
 func main() {
-	args := os.Args[1:]
-	if len(args) < 2 || args[0] != "-c" {
-		fmt.Fprintln(os.Stderr, "Usage: go run . -c <bytes> <file1> [file2 ...]")
-		os.Exit(1)
-	}
-
-	count, valid := atoi(args[1])
-	if !valid || count <= 0 {
-		fmt.Fprintln(os.Stderr, "Error: -c argument must be a positive number")
-		os.Exit(1)
-	}
-
-	files := args[2:]
-	if len(files) == 0 {
-		fmt.Fprintln(os.Stderr, "Error: No files provided")
-		os.Exit(1)
-	}
-
-	exitCode := 0
-	firstFilePrinted := false
-	errorPrinted := false
-
-	for _, filename := range files {
-		if _, err := os.Stat(filename); os.IsNotExist(err) {
-			if errorPrinted {
-				fmt.Fprintln(os.Stderr) // Перенос строки между ошибками
+	arguments := os.Args[1:]
+	if len(arguments) == 0 {
+		printIt("Error\n")
+	} else {
+		iPos := 0
+		iCount := 0
+		iCheck := 0
+		iErrCount := 0
+		for idx, v := range arguments {
+			if idx == 0 && v == "-c" {
+				iPos = Atoi(arguments[1])
+				iCheck = 2
 			}
-			fmt.Fprintf(os.Stderr, "open %s: no such file or directory\n", filename)
-			errorPrinted = true
-			exitCode = 1
-			continue
+			if idx >= iCheck {
+				str := getData(v)
+				strErr := "open "
+				strErr += v
+				strErr += ": no such file or directory\n"
+				if str != strErr {
+					str = getSubStr(str, iPos)
+					sHead := ""
+					if iCount > 0 || iErrCount > 0 {
+						sHead = "\n"
+					}
+					sHead += "==> "
+					sHead += v
+					sHead += " <==\n"
+					str = sHead + str
+					printIt(str)
+					iCount++
+				} else {
+					printIt(str)
+					iErrCount++
+				}
+			}
 		}
-
-		if firstFilePrinted || errorPrinted {
-			fmt.Println() // Печатаем перенос строки перед заголовком файла
+		if iErrCount > 0 {
+			os.Exit(1)
 		}
-
-		fmt.Printf("==> %s <==\n", filename)
-		printTail(filename, count)
-
-		firstFilePrinted = true
 	}
+}
 
-	os.Exit(exitCode)
+func getSubStr(s string, i int) string {
+	output := []byte(s)
+	sOut := ""
+	iStart := 0
+	if i < len(s) {
+		iStart = len(s) - i
+	}
+	for j := iStart; j < len(s); j++ {
+		sOut += string(output[j])
+	}
+	return sOut
+}
+
+func getData(s string) string {
+	data, err := os.ReadFile(s)
+	if err != nil {
+		return (err.Error() + "\n")
+	}
+	return string(data)
+}
+
+func printIt(s string) {
+	fmt.Printf("%v", s)
+}
+
+func Atoi(s string) int {
+	var iReturn int
+	output := []byte(s)
+	var j int
+	iMinus := 0
+	for i := len(output) - 1; i >= 0; i-- {
+		iCheckL := CheckExpression2(int(output[i]) - '0')
+		if iCheckL == 0 {
+			return 0 // invalid character
+		} else if iCheckL == -1 {
+			if iMinus == 0 && i == 0 {
+				iReturn *= -1 // handle negative sign
+			} else {
+				return 0
+			}
+			iMinus++
+		} else if iCheckL == -2 {
+			if iMinus == 0 && i == 0 {
+				iMinus++
+			} else {
+				return 0
+			}
+		} else {
+			decem := TenStep3(j)
+			if j == 0 {
+				iReturn += (int(output[i]) - '0')
+			} else {
+				iReturn += (int(output[i]) - '0') * decem
+			}
+		}
+		j++
+	}
+	return iReturn
+}
+
+func CheckExpression2(iAscii int) int {
+	if iAscii >= 0 && iAscii <= 9 {
+		return 1
+	} else if iAscii == -3 { // handling '-'
+		return -1
+	} else if iAscii == -5 { // handling '+'
+		return -2
+	}
+	return 0
+}
+
+func TenStep3(j int) int {
+	if j == 0 {
+		return 1
+	}
+	result := 1
+	for i := 0; i < j; i++ {
+		result *= 10
+	}
+	return result
 }
