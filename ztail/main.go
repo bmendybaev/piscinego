@@ -5,11 +5,6 @@ import (
 	"os"
 )
 
-// Функция для печати строки
-func printStr(s string) {
-	fmt.Print(s)
-}
-
 // Функция для преобразования строки в число (без strconv)
 func atoi(s string) (int, bool) {
 	result := 0
@@ -26,14 +21,14 @@ func atoi(s string) (int, bool) {
 func printTail(filename string, count int) bool {
 	file, err := os.Open(filename)
 	if err != nil {
-		printStr("open " + filename + ": no such file or directory\n")
+		fmt.Fprintf(os.Stderr, "open %s: no such file or directory\n", filename)
 		return false
 	}
 	defer file.Close()
 
 	info, err := file.Stat()
 	if err != nil {
-		printStr("open " + filename + ": error retrieving file info\n")
+		fmt.Fprintf(os.Stderr, "open %s: error retrieving file info\n", filename)
 		return false
 	}
 
@@ -47,14 +42,14 @@ func printTail(filename string, count int) bool {
 	}
 	_, err = file.Seek(start, 0)
 	if err != nil {
-		printStr("error seeking file\n")
+		fmt.Fprintln(os.Stderr, "error seeking file")
 		return false
 	}
 
 	buffer := make([]byte, count)
 	n, err := file.Read(buffer)
 	if err != nil {
-		printStr("error reading file\n")
+		fmt.Fprintln(os.Stderr, "error reading file")
 		return false
 	}
 
@@ -65,43 +60,46 @@ func printTail(filename string, count int) bool {
 func main() {
 	args := os.Args[1:]
 	if len(args) < 2 || args[0] != "-c" {
-		printStr("Usage: go run . -c <bytes> <file1> [file2 ...]\n")
+		fmt.Fprintln(os.Stderr, "Usage: go run . -c <bytes> <file1> [file2 ...]")
 		os.Exit(1)
 	}
 
 	count, valid := atoi(args[1])
 	if !valid || count <= 0 {
-		printStr("Error: -c argument must be a positive number\n")
+		fmt.Fprintln(os.Stderr, "Error: -c argument must be a positive number")
 		os.Exit(1)
 	}
 
 	files := args[2:]
 	if len(files) == 0 {
-		printStr("Error: No files provided\n")
+		fmt.Fprintln(os.Stderr, "Error: No files provided")
 		os.Exit(1)
 	}
 
 	exitCode := 0
-	firstFilePrinted := false
+	firstOutput := false
 	errorPrinted := false
+
 	for _, filename := range files {
 		if _, err := os.Stat(filename); os.IsNotExist(err) {
 			if errorPrinted {
-				printStr("\n") // Добавляем перенос строки между ошибками
+				fmt.Fprintln(os.Stderr, "") // Добавляем пустую строку перед следующей ошибкой
 			}
-			printStr("open " + filename + ": no such file or directory")
+			fmt.Fprintf(os.Stderr, "open %s: no such file or directory\n", filename)
 			errorPrinted = true
 			exitCode = 1
 			continue
 		}
-		if firstFilePrinted || errorPrinted {
-			printStr("\n") // Перенос строки перед печатью файла, если были ошибки
+
+		if firstOutput || errorPrinted {
+			fmt.Println("") // Печатаем перенос строки перед заголовком, если были ошибки или предыдущие файлы
 		}
-		firstFilePrinted = true
-		printStr("==> " + filename + " <==\n")
-		if !printTail(filename, count) {
-			exitCode = 1
-		}
+
+		fmt.Printf("==> %s <==\n", filename)
+		printTail(filename, count)
+
+		firstOutput = true
 	}
+
 	os.Exit(exitCode)
 }
