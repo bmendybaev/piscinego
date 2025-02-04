@@ -26,14 +26,14 @@ func atoi(s string) (int, bool) {
 func printTail(filename string, count int) bool {
 	file, err := os.Open(filename)
 	if err != nil {
-		printStr("open " + filename + ": no such file or directory\n\n") // Добавлен второй \n
+		printStr("open " + filename + ": no such file or directory\n")
 		return false
 	}
 	defer file.Close()
 
 	info, err := file.Stat()
 	if err != nil {
-		printStr("open " + filename + ": error retrieving file info\n\n")
+		printStr("open " + filename + ": error retrieving file info\n")
 		return false
 	}
 
@@ -83,14 +83,19 @@ func main() {
 
 	exitCode := 0
 	firstFilePrinted := false
+	errorPrinted := false
 	for _, filename := range files {
 		if _, err := os.Stat(filename); os.IsNotExist(err) {
-			printStr("open " + filename + ": no such file or directory\n\n") // Добавлен второй \n
+			if errorPrinted {
+				printStr("\n") // Добавляем перенос строки между ошибками
+			}
+			printStr("open " + filename + ": no such file or directory")
+			errorPrinted = true
 			exitCode = 1
 			continue
 		}
-		if firstFilePrinted {
-			printStr("\n")
+		if firstFilePrinted || errorPrinted {
+			printStr("\n") // Перенос строки перед печатью файла, если были ошибки
 		}
 		firstFilePrinted = true
 		printStr("==> " + filename + " <==\n")
