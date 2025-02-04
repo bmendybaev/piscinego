@@ -85,7 +85,7 @@ func main() {
 	firstFilePrinted := false
 	for _, filename := range files {
 		if _, err := os.Stat(filename); os.IsNotExist(err) {
-			printStr("open " + filename + ": no such file or directory\n\n")
+			printStr("open " + filename + ": no such file or directory\n")
 			exitCode = 1
 			continue
 		}
