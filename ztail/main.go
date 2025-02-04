@@ -1,16 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"os"
-
-	"github.com/01-edu/z01"
 )
 
 // Функция для печати строки
 func printStr(s string) {
-	for _, r := range s {
-		z01.PrintRune(r)
-	}
+	fmt.Print(s)
 }
 
 // Функция для преобразования строки в число (без strconv)
@@ -29,18 +26,14 @@ func atoi(s string) (int, bool) {
 func printTail(filename string, count int) bool {
 	file, err := os.Open(filename)
 	if err != nil {
-		printStr("open ")
-		printStr(filename)
-		printStr(": no such file or directory\n")
+		printStr("open " + filename + ": no such file or directory\n")
 		return false
 	}
 	defer file.Close()
 
 	info, err := file.Stat()
 	if err != nil {
-		printStr("open ")
-		printStr(filename)
-		printStr(": error retrieving file info\n")
+		printStr("open " + filename + ": error retrieving file info\n")
 		return false
 	}
 
@@ -65,9 +58,7 @@ func printTail(filename string, count int) bool {
 		return false
 	}
 
-	for i := 0; i < n; i++ {
-		z01.PrintRune(rune(buffer[i]))
-	}
+	fmt.Print(string(buffer[:n]))
 	return true
 }
 
@@ -94,19 +85,15 @@ func main() {
 	firstFilePrinted := false
 	for _, filename := range files {
 		if _, err := os.Stat(filename); os.IsNotExist(err) {
-			printStr("open ")
-			printStr(filename)
-			printStr(": no such file or directory\n")
+			printStr("open " + filename + ": no such file or directory\n")
 			exitCode = 1
 			continue
 		}
 		if firstFilePrinted {
-			z01.PrintRune('\n')
+			printStr("\n")
 		}
 		firstFilePrinted = true
-		printStr("==> ")
-		printStr(filename)
-		printStr(" <==\n")
+		printStr("==> " + filename + " <==\n")
 		if !printTail(filename, count) {
 			exitCode = 1
 		}
