@@ -40,8 +40,7 @@ func printTail(filename string, count int) bool {
 	if start < 0 {
 		start = 0
 	}
-	_, err = file.Seek(start, 0)
-	if err != nil {
+	if _, err = file.Seek(start, 0); err != nil { // Исправлено: теперь err проверяется
 		fmt.Fprintln(os.Stderr, "error seeking file")
 		return false
 	}
@@ -80,10 +79,10 @@ func main() {
 	firstFilePrinted := false
 	errorPrinted := false
 
-	for i, filename := range files {
+	for _, filename := range files {
 		if _, err := os.Stat(filename); os.IsNotExist(err) {
 			if errorPrinted {
-				fmt.Fprintln(os.Stderr) // Добавляем пустую строку перед следующей ошибкой
+				fmt.Fprintln(os.Stderr) // Перенос строки между ошибками
 			}
 			fmt.Fprintf(os.Stderr, "open %s: no such file or directory\n", filename)
 			errorPrinted = true
@@ -92,7 +91,7 @@ func main() {
 		}
 
 		if firstFilePrinted || errorPrinted {
-			fmt.Println() // Печатаем перенос строки перед заголовком файла, если были ошибки или предыдущие файлы
+			fmt.Println() // Печатаем перенос строки перед заголовком файла
 		}
 
 		fmt.Printf("==> %s <==\n", filename)
