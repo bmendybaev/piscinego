@@ -119,6 +119,7 @@ func CheckExpression2(iAscii int) int {
 	return 0
 }
 
+// ddsdfs
 func TenStep3(j int) int {
 	if j == 0 {
 		return 1
