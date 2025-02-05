@@ -90,8 +90,7 @@ func writeInt(n int64) {
 	}
 
 	os.Stdout.Write(buf[i:])
-	os.Stdout.Write([]byte{'
-'})
+	os.Stdout.Write([]byte("\n"))
 }
 
 func safeAdd(a, b int64) (int64, bool) {
