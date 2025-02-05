@@ -1,15 +1,24 @@
 package piscine
 
-import "fmt"
+import "github.com/01-edu/z01"
 
-// ForEach применяет функцию f к каждому элементу среза asdfsdfsdfsd
+// ForEach applies function f to each element of slice a
 func ForEach(f func(int), a []int) {
-	for i := 0; i < len(a); i++ {
-		f(a[i])
+	for _, v := range a {
+		f(v)
 	}
 }
 
-// PrintNbr выводит число без новой строки 1128
+// PrintNbr prints a number without using fmt
 func PrintNbr(n int) {
-	fmt.Print(n)
+	if n < 0 {
+		z01.PrintRune('-')
+		n = -n
+	}
+
+	if n/10 != 0 {
+		PrintNbr(n / 10)
+	}
+
+	z01.PrintRune(rune(n%10 + '0'))
 }
