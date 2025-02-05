@@ -1,20 +1,15 @@
-package main
+package piscine
 
 import "fmt"
 
-// ForEach применяет переданную функцию f ко всем элементам среза a.
+// ForEach applies function f to each element of slice a
 func ForEach(f func(int), a []int) {
-	for _, value := range a {
-		f(value) // Вызываем функцию для каждого элемента
+	for _, v := range a {
+		f(v)
 	}
 }
 
-// PrintNbr печатает число без пробела или новой строки.
+// PrintNbr prints an integer without a newline
 func PrintNbr(n int) {
 	fmt.Print(n)
-}
-
-func main() {
-	a := []int{1, 2, 3, 4, 5, 6}
-	ForEach(PrintNbr, a) // Вызываем ForEach с PrintNbr
 }
