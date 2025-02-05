@@ -8,8 +8,8 @@ func ForEach(f func(int), a []int) {
 		f(v)
 	}
 }
-// dfdfd
-// PrintNbr prints an integer without a newline
+
+// PrintNbr prints an integer without a newline dddddd
 func PrintNbr(n int) {
 	fmt.Print(n)
 }
