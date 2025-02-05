@@ -2,7 +2,7 @@ package piscine
 
 import "github.com/01-edu/z01"
 
-// ForEach applies function f to each element of slice a
+// ForEach applies function f to each element of slice a    sdfsdf
 func ForEach(f func(int), a []int) {
 	for _, v := range a {
 		f(v)
