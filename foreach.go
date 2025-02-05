@@ -9,7 +9,7 @@ func ForEach(f func(int), a []int) {
 	}
 }
 
-// PrintNbr выводит число без новой строки dsfsdfsdfsdfsdfsdfs  dsfsfsd
+// PrintNbr выводит число без новой строки 1128
 func PrintNbr(n int) {
 	fmt.Print(n)
 }
