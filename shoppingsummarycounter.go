@@ -17,10 +17,9 @@ func ShoppingSummaryCounter(str string) map[string]int {
 			i++
 		}
 
-		// Add the item if it's not an empty string
 		if item != "" {
 			summary[item]++
-			item = "" // Reset for the next word
+			item = "" // Reset for the next word 123
 		}
 	}
 
