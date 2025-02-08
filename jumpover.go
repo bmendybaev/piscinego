@@ -8,12 +8,6 @@ func JumpOver(str string) string {
 		return "\n"
 	}
 
-	// Специальная проверка для строки "1010101010"
-	if str == "1010101010" {
-		z01.PrintRune('\n')
-		return "\n"
-	}
-
 	s := ""
 	for i := 2; i < len(str); i += 3 {
 		s += string(str[i])
