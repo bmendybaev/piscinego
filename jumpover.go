@@ -22,6 +22,6 @@ func JumpOver(str string) string {
 		z01.PrintRune(r)
 	}
 	z01.PrintRune('\n')
-// ввв
+
 	return result + "\n"
 }
