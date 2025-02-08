@@ -1,27 +1,24 @@
 package piscine
 
-import "github.com/01-edu/z01"
+import (
+	"github.com/01-edu/z01"
+)
 
 func JumpOver(str string) string {
-	if len(str) < 3 {
-		z01.PrintRune('\n')
+	result := ""
+	
+	// Iterate over the string and pick every third character
+	for i, char := range str {
+		if (i+1)%3 == 0 { // (i+1) to make it 1-based indexing
+			result += string(char)
+		}
+	}
+
+	// If result is empty, return newline
+	if result == "" {
 		return "\n"
 	}
 
-	s := ""
-	for i := 2; i < len(str); i += 3 {
-		s += string(str[i])
-	}
-
-	if s == "" {
-		z01.PrintRune('\n')
-		return "\n"
-	}
-
-	for _, r := range s {
-		z01.PrintRune(r)
-	}
-	z01.PrintRune('\n')
-
-	return s + "\n"
+	// Append newline at the end
+	return result + "\n"
 }
