@@ -22,8 +22,11 @@ func ShoppingSummaryCounter(str string) map[string]int {
 			summary[word]++
 		}
 
-		// Move to the next potential word
+		// Move to the next potential word and skip consecutive spaces
 		start = end
+		for start < len(str) && str[start] == ' ' {
+			start++ // Skip consecutive spaces
+		}
 	}
 
 	return summary
