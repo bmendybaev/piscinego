@@ -1,32 +1,37 @@
 package piscine
 
+import "unicode"
+
+func capitalize(s string) string {
+	result := ""
+	for i, ch := range s {
+		if i == 0 {
+			result += string(unicode.ToUpper(ch))
+		} else {
+			result += string(ch)
+		}
+	}
+	return result
+}
+
 func ShoppingSummaryCounter(str string) map[string]int {
 	summary := make(map[string]int)
-	start := 0
+	mergedWord := ""
 
-	for start < len(str) {
-		// Skip any leading spaces
-		for start < len(str) && str[start] == ' ' {
-			start++
+	for i := 0; i < len(str); i++ {
+		if str[i] != ' ' {
+			mergedWord += string(str[i])
+		} else if mergedWord != "" {
+			capitalizedWord := capitalize(mergedWord)
+			summary[capitalizedWord]++
+			mergedWord = ""
 		}
+	}
 
-		// Identify the end of the current word
-		end := start
-		for end < len(str) && str[end] != ' ' {
-			end++
-		}
-
-		// Add the word to the map if it's not empty
-		if start < end {
-			word := str[start:end]
-			summary[word]++
-		}
-
-		// Move to the next potential word and skip consecutive spaces
-		start = end
-		for start < len(str) && str[start] == ' ' {
-			start++ // Skip consecutive spaces
-		}
+	// Add the last merged word if there's no trailing space
+	if mergedWord != "" {
+		capitalizedWord := capitalize(mergedWord)
+		summary[capitalizedWord]++
 	}
 
 	return summary
