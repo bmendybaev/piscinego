@@ -18,12 +18,6 @@ func JumpOver(str string) string {
 		result += string(runes[i])
 	}
 
-	// Проверка на специальный случай "1010101010"
-	if str == "1010101010" {
-		z01.PrintRune('\n')
-		return "\n"
-	}
-
 	// Проверка на наличие выбранных символов
 	if result == "" {
 		z01.PrintRune('\n')
