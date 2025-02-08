@@ -13,20 +13,6 @@ func JumpOver(str string) string {
 		s += string(str[i])
 	}
 
-	// Проверка на повторяющийся шаблон
-	repeated := true
-	for i := 1; i < len(s); i++ {
-		if s[i] != s[0] {
-			repeated = false
-			break
-		}
-	}
-
-	if repeated {
-		z01.PrintRune('\n')
-		return "\n"
-	}
-
 	if s == "" {
 		z01.PrintRune('\n')
 		return "\n"
