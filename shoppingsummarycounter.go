@@ -20,7 +20,7 @@ func ShoppingSummaryCounter(str string) map[string]int {
 		}
 	}
 
-	// Add the last item if there's no trailing space
+	// Add the last item if there's no trailing space ghjgjhgjhgjhgj
 	if item != "" {
 		summary[item]++
 	}
