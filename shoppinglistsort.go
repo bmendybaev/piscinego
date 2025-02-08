@@ -1,13 +1,15 @@
 package piscine
 
-import (
-	"sort"
-)
-
 func ShoppingListSort(slice []string) []string {
-	sort.Slice(slice, func(i, j int) bool {
-		return len(slice[i]) < len(slice[j])
-	})
-
+	// Реализация пузырьковой сортировки
+	n := len(slice)
+	for i := 0; i < n; i++ {
+		for j := 0; j < n-1-i; j++ {
+			if len(slice[j]) > len(slice[j+1]) {
+				// Меняем элементы местами
+				slice[j], slice[j+1] = slice[j+1], slice[j]
+			}
+		}
+	}
 	return slice
 }
