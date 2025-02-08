@@ -1,9 +1,11 @@
 package piscine
+
 func ShoppingSummaryCounter(str string) map[string]int {
 	m := make(map[string]int)
 	out1 := []byte(str)
 	var sWord []byte
 	var out []string
+
 	for i := 0; i < len(out1); i++ {
 		if str[i] != ' ' {
 			sWord = append(sWord, out1[i])
@@ -13,6 +15,7 @@ func ShoppingSummaryCounter(str string) map[string]int {
 		}
 	}
 	out = append(out, string(sWord))
+
 	for _, v := range out {
 		_, ok := m[v]
 		if ok {
@@ -21,5 +24,6 @@ func ShoppingSummaryCounter(str string) map[string]int {
 			m[v] = 1
 		}
 	}
+
 	return m
 }
