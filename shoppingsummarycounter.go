@@ -1,12 +1,11 @@
 package piscine
 
-import "unicode"
-
 func capitalize(s string) string {
 	result := ""
-	for i, ch := range s {
-		if i == 0 {
-			result += string(unicode.ToUpper(ch))
+	for i := 0; i < len(s); i++ {
+		ch := s[i]
+		if i == 0 && ch >= 'a' && ch <= 'z' {
+			result += string(ch - ('a' - 'A'))
 		} else {
 			result += string(ch)
 		}
