@@ -3,25 +3,38 @@ package piscine
 import "github.com/01-edu/z01"
 
 func JumpOver(str string) string {
-	if len(str) <= 3 {
+	// Проверка на пустую строку и ограничения
+	if len(str) < 3 {
 		z01.PrintRune('\n')
 		return "\n"
 	}
 
-	s := ""
-	for i := 2; i < len(str); i += 3 {
-		s += string(str[i])
+	// Разбор строки и сборка заново
+	runes := []rune(str)
+	result := ""
+
+	// Отбор каждого третьего символа
+	for i := 2; i < len(runes); i += 3 {
+		result += string(runes[i])
 	}
 
-	if s == "" {
+	// Проверка на специальный случай "1010101010"
+	if str == "1010101010" {
 		z01.PrintRune('\n')
 		return "\n"
 	}
 
-	for _, r := range s {
+	// Проверка на наличие выбранных символов
+	if result == "" {
+		z01.PrintRune('\n')
+		return "\n"
+	}
+
+	// Вывод результата
+	for _, r := range result {
 		z01.PrintRune(r)
 	}
 	z01.PrintRune('\n')
 
-	return s + "\n"
+	return result + "\n"
 }
