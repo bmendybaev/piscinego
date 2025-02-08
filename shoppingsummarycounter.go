@@ -1,41 +1,33 @@
 package piscine
 
 func capitalize(s string) string {
-	result := ""
-	for i := 0; i < len(s); i++ {
-		ch := s[i]
-		if i == 0 && ch >= 'a' && ch <= 'z' {
-			result += string(ch - ('a' - 'A'))
-		} else {
-			result += string(ch)
-		}
+	if len(s) == 0 {
+		return s
 	}
-	return result
+	if s[0] >= 'a' && s[0] <= 'z' {
+		return string(s[0]-('a'-'A')) + s[1:]
+	}
+	return s
 }
 
 func ShoppingSummaryCounter(str string) map[string]int {
 	summary := make(map[string]int)
-	mergedWord := ""
-	spaceCount := 0
+	word := ""
 
-	for i := 0; i < len(str); i++ {
-		if str[i] != ' ' {
-			if spaceCount > 1 && mergedWord != "" {
-				capitalizedWord := capitalize(mergedWord)
-				summary[capitalizedWord]++
-				mergedWord = ""
-			}
-			mergedWord += string(str[i])
-			spaceCount = 0
+	for i := 0; i <= len(str); i++ {
+		if i < len(str) && str[i] != ' ' {
+			word += string(str[i])
 		} else {
-			spaceCount++
+			if word != "" {
+				capitalizedWord := capitalize(word)
+				summary[capitalizedWord]++
+				word = ""
+			}
+			// Skip multiple spaces
+			for i+1 < len(str) && str[i+1] == ' ' {
+				i++
+			}
 		}
-	}
-
-	// Add the last merged word if there's no trailing space
-	if mergedWord != "" {
-		capitalizedWord := capitalize(mergedWord)
-		summary[capitalizedWord]++
 	}
 
 	return summary
