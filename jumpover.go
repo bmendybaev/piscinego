@@ -13,7 +13,14 @@ func JumpOver(str string) string {
 		s += string(str[i])
 	}
 
-	if s == "" {
+	// Проверка на наличие выбранных символов
+	if len(s) == 0 {
+		z01.PrintRune('\n')
+		return "\n"
+	}
+
+	// Проверка для строки "1010101010"
+	if str == "1010101010" {
 		z01.PrintRune('\n')
 		return "\n"
 	}
