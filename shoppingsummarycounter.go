@@ -16,19 +16,14 @@ func capitalize(s string) string {
 func ShoppingSummaryCounter(str string) map[string]int {
 	summary := make(map[string]int)
 	mergedWord := ""
-	spaceCount := 0
 
 	for i := 0; i < len(str); i++ {
 		if str[i] != ' ' {
-			if spaceCount > 1 && mergedWord != "" {
-				capitalizedWord := capitalize(mergedWord)
-				summary[capitalizedWord]++
-				mergedWord = ""
-			}
 			mergedWord += string(str[i])
-			spaceCount = 0
-		} else {
-			spaceCount++
+		} else if mergedWord != "" {
+			capitalizedWord := capitalize(mergedWord)
+			summary[capitalizedWord]++
+			mergedWord = ""
 		}
 	}
 
