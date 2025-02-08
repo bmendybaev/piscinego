@@ -1,7 +1,9 @@
 package piscine
+
 func ShoppingSummaryCounter(str string) map[string]int {
 	summary := make(map[string]int)
 	item := ""
+
 	i := 0
 	for i < len(str) {
 		if str[i] != ' ' {
@@ -18,9 +20,11 @@ func ShoppingSummaryCounter(str string) map[string]int {
 			}
 		}
 	}
-	// Add the last item if there's no trailing space ghjgjhgjhgjhgj
+
+	// Add the last item if there's no trailing space
 	if item != "" {
 		summary[item]++
 	}
+
 	return summary
 }
