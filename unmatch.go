@@ -8,9 +8,9 @@ func Unmatch(a []int) int {
 		countMap[num]++
 	}
 
-	// Find the number with an odd count
-	for num, count := range countMap {
-		if count%2 != 0 {
+	// Find the first number with an odd count in the original order
+	for _, num := range a {
+		if countMap[num]%2 != 0 {
 			return num
 		}
 	}
