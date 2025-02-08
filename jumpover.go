@@ -13,12 +13,6 @@ func JumpOver(str string) string {
 		s += string(str[i])
 	}
 
-	// Проверка на наличие выбранных символов
-	if len(s) == 0 {
-		z01.PrintRune('\n')
-		return "\n"
-	}
-
 	for _, r := range s {
 		z01.PrintRune(r)
 	}
