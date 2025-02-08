@@ -3,12 +3,17 @@ package piscine
 import "github.com/01-edu/z01"
 
 func JumpOver(str string) string {
+	if len(str) < 3 {
+		z01.PrintRune('\n')
+		return "\n"
+	}
+
 	result := ""
 	for i := 2; i < len(str); i += 3 {
 		result += string(str[i])
 	}
 
-	if len(result) == 0 {
+	if result == "" {
 		z01.PrintRune('\n')
 		return "\n"
 	}
