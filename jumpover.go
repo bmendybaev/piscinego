@@ -9,19 +9,19 @@ func JumpOver(str string) string {
 	}
 
 	s := ""
-	c := 3
-	for i := 2; i < len(str); i++ {
-		if c == 3 {
-			s += string(str[i])
-			c = 0
-		}
-		c++
+	for i := 2; i < len(str); i += 3 {
+		s += string(str[i])
 	}
-	s += "\n"
+
+	if s == "" {
+		z01.PrintRune('\n')
+		return "\n"
+	}
 
 	for _, r := range s {
 		z01.PrintRune(r)
 	}
+	z01.PrintRune('\n')
 
-	return s
+	return s + "\n"
 }
