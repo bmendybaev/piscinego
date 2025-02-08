@@ -7,15 +7,9 @@ func ShoppingSummaryCounter(str string) map[string]int {
 	for i := 0; i < len(str); i++ {
 		if str[i] != ' ' {
 			item += string(str[i])
-		} else {
-			if item != "" {
-				summary[item]++
-				item = ""
-			}
-			// Skip consecutive spaces without adding empty items
-			for i+1 < len(str) && str[i+1] == ' ' {
-				i++
-			}
+		} else if item != "" {
+			summary[item]++
+			item = ""
 		}
 	}
 
