@@ -1,9 +1,5 @@
 package piscine
 
-import (
-	"errors"
-)
-
 type food struct {
 	preptime int
 }
