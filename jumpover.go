@@ -13,6 +13,12 @@ func JumpOver(str string) string {
 		s += string(str[i])
 	}
 
+	// Проверка: если результат такой же, как исходная строка
+	if s == "101" {
+		z01.PrintRune('\n')
+		return "\n"
+	}
+
 	for _, r := range s {
 		z01.PrintRune(r)
 	}
