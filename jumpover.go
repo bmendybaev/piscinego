@@ -8,16 +8,15 @@ func JumpOver(str string) string {
 		result += string(str[i])
 	}
 
-	if result == "" {
-		result = "\n"
-	} else {
-		result += "\n"
+	if len(result) == 0 {
+		z01.PrintRune('\n')
+		return "\n"
 	}
 
-	// Print the result using z01.PrintRune
 	for _, r := range result {
 		z01.PrintRune(r)
 	}
+	z01.PrintRune('\n')
 
-	return result
+	return result + "\n"
 }
