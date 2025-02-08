@@ -20,7 +20,7 @@ func ShoppingSummaryCounter(str string) map[string]int {
 
 	for i := 0; i < len(str); i++ {
 		if str[i] != ' ' {
-			if spaceCount > 0 && mergedWord != "" {
+			if spaceCount > 1 && mergedWord != "" {
 				capitalizedWord := capitalize(mergedWord)
 				summary[capitalizedWord]++
 				mergedWord = ""
