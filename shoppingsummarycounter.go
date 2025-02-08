@@ -1,20 +1,25 @@
 package piscine
-
 func ShoppingSummaryCounter(str string) map[string]int {
-	itemCount := make(map[string]int)
-
-	item := ""
-	for i := 0; i < len(str); i++ {
+	m := make(map[string]int)
+	out1 := []byte(str)
+	var sWord []byte
+	var out []string
+	for i := 0; i < len(out1); i++ {
 		if str[i] != ' ' {
-			item += string(str[i])
-		} else if item != "" {
-			itemCount[item]++
-			item = ""
+			sWord = append(sWord, out1[i])
+		} else {
+			out = append(out, string(sWord))
+			sWord = make([]byte, 0)
 		}
 	}
-	if item != "" {
-		itemCount[item]++
+	out = append(out, string(sWord))
+	for _, v := range out {
+		_, ok := m[v]
+		if ok {
+			m[v] += 1
+		} else {
+			m[v] = 1
+		}
 	}
-
-	return itemCount
+	return m
 }
