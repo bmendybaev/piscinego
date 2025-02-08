@@ -13,8 +13,7 @@ func JumpOver(str string) string {
 		s += string(str[i])
 	}
 
-	// Проверка: если результат такой же, как исходная строка
-	if s == "101" {
+	if s == "" {
 		z01.PrintRune('\n')
 		return "\n"
 	}
