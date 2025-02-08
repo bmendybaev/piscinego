@@ -2,25 +2,28 @@ package piscine
 
 func ShoppingSummaryCounter(str string) map[string]int {
 	summary := make(map[string]int)
-	start := -1 // Marker for the start of a word
+	start := 0
 
-	for i := 0; i < len(str); i++ {
-		if str[i] != ' ' {
-			if start == -1 {
-				start = i // Mark the beginning of a word
-			}
+	for start < len(str) {
+		// Skip any leading spaces
+		for start < len(str) && str[start] == ' ' {
+			start++
 		}
 
-		// If a space is encountered or it's the end of the string, process the word
-		if (str[i] == ' ' && start != -1) || (i == len(str)-1 && start != -1) {
-			end := i
-			if str[i] != ' ' {
-				end = i + 1 // Include the last character if not a space
-			}
+		// Identify the end of the current word
+		end := start
+		for end < len(str) && str[end] != ' ' {
+			end++
+		}
+
+		// Add the word to the map if it's not empty
+		if start < end {
 			word := str[start:end]
 			summary[word]++
-			start = -1 // Reset for the next word
 		}
+
+		// Move to the next potential word
+		start = end
 	}
 
 	return summary
