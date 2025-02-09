@@ -23,11 +23,6 @@ func LoafOfBread(str string) string {
 		}
 	}
 
-	// Check for remaining characters
-	if i < len(filtered) {
-		result += filtered[i:]
-	}
-
 	// Remove the trailing space if present
 	if len(result) > 0 && result[len(result)-1] == ' ' {
 		result = result[:len(result)-1]
