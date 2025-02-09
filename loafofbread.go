@@ -13,8 +13,18 @@ func LoafOfBread(str string) string {
 	}
 
 	result := ""
-	for i := 0; i+5 <= len(filtered); i += 6 {
+	i := 0
+	for i+5 <= len(filtered) {
 		result += filtered[i:i+5] + " "
+		i += 5
+		if i < len(filtered) {
+			i++ // Skip the next character
+		}
+	}
+
+	// Handle the remaining characters
+	if i < len(filtered) && len(filtered)-i >= 5 {
+		result += filtered[i : i+5]
 	}
 
 	if len(result) > 0 && result[len(result)-1] == ' ' {
