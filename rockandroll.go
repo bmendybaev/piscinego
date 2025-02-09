@@ -1,7 +1,5 @@
 package piscine
 
-import "fmt"
-
 func RockAndRoll(n int) string {
 	if n < 0 {
 		return "error: number is negative\n"
