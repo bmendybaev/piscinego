@@ -13,23 +13,26 @@ func LoafOfBread(str string) string {
 	}
 
 	result := ""
-	i := 0
-	for i+5 <= len(filtered) {
-		result += filtered[i:i+5] + " "
-		i += 5
-		if i < len(filtered) {
-			i++ // Skip the next character
+	word := ""
+	count := 0
+
+	for i := 0; i < len(filtered); i++ {
+		word += string(filtered[i])
+		count++
+
+		if count == 5 {
+			result += word + " "
+			word = ""
+			count = 0
+
+			if i+1 < len(filtered) {
+				i++ // Skip the next character
+			}
 		}
 	}
 
-	// Append remaining characters if any
-	if i < len(filtered) {
-		remaining := filtered[i:]
-		if len(remaining) >= 5 {
-			result += remaining[:5]
-		} else {
-			result += remaining
-		}
+	if word != "" {
+		result += word
 	}
 
 	if len(result) > 0 && result[len(result)-1] == ' ' {
