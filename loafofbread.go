@@ -22,9 +22,14 @@ func LoafOfBread(str string) string {
 		}
 	}
 
-	// Handle the remaining characters
-	if i < len(filtered) && len(filtered)-i >= 5 {
-		result += filtered[i : i+5]
+	// Append remaining characters if any
+	if i < len(filtered) {
+		remaining := filtered[i:]
+		if len(remaining) >= 5 {
+			result += remaining[:5]
+		} else {
+			result += remaining
+		}
 	}
 
 	if len(result) > 0 && result[len(result)-1] == ' ' {
