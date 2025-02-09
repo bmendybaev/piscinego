@@ -13,20 +13,19 @@ func LoafOfBread(str string) string {
 	}
 
 	result := ""
+	i := 0
 
-	for i := 0; i < len(filtered); {
-		// Check if there are at least 5 characters left to process
-		if i+5 <= len(filtered) {
-			result += filtered[i:i+5] + " "
-			i += 5 // Move forward by 5 characters
-			if i < len(filtered) {
-				i++ // Skip the next character if within bounds
-			}
-		} else {
-			// Append the remaining characters
-			result += filtered[i:]
-			break
+	for i+5 <= len(filtered) {
+		result += filtered[i:i+5] + " "
+		i += 5
+		if i < len(filtered) {
+			i++ // Skip the next character
 		}
+	}
+
+	// Check for remaining characters
+	if i < len(filtered) {
+		result += filtered[i:]
 	}
 
 	// Remove the trailing space if present
