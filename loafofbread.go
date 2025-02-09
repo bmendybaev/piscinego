@@ -26,6 +26,11 @@ func LoafOfBread(str string) string {
 		}
 	}
 
+	// Check for remaining characters if they form a valid chunk
+	if len(filtered)-index >= 5 {
+		result += filtered[index : index+5]
+	}
+
 	// Remove the trailing space if present and add a newline
 	if len(result) > 0 && result[len(result)-1] == ' ' {
 		result = result[:len(result)-1]
