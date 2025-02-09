@@ -20,7 +20,10 @@ func LoafOfBread(str string) string {
 	// Process the filtered string in chunks of 5 characters
 	for index+5 <= len(filtered) {
 		result += filtered[index:index+5] + " "
-		index += 6 // Skip the next character after the 5 characters
+		index += 5 // Move 5 characters forward
+		if index < len(filtered) {
+			index++ // Skip the next character if within bounds
+		}
 	}
 
 	// Remove the trailing space if present and add a newline
