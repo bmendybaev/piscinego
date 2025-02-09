@@ -13,7 +13,6 @@ func LoafOfBread(str string) string {
 	}
 
 	result := ""
-	count := 0
 
 	for i := 0; i < len(filtered); {
 		// Check if there are at least 5 characters left to process
