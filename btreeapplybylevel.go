@@ -28,10 +28,10 @@ func BTreeInsertData(root *TreeNode, data string) *TreeNode {
 }
 
 func BTreeIsBinary(root *TreeNode) bool {
-	return checkBST(root, "", "")
+	return isBST(root, "", "")
 }
 
-func checkBST(node *TreeNode, min, max string) bool {
+func isBST(node *TreeNode, min, max string) bool {
 	if node == nil {
 		return true
 	}
@@ -42,7 +42,7 @@ func checkBST(node *TreeNode, min, max string) bool {
 		return false
 	}
 
-	return checkBST(node.Left, min, nodeData) && checkBST(node.Right, nodeData, max)
+	return isBST(node.Left, min, nodeData) && isBST(node.Right, nodeData, max)
 }
 
 func BTreeApplyByLevel(root *TreeNode, f func(string, int)) {
