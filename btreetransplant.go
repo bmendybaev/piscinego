@@ -1,13 +1,5 @@
 package piscine
 
-// TreeNode represents a node in the binary tree
-type TreeNode struct {
-	Data   string
-	Left   *TreeNode
-	Right  *TreeNode
-	Parent *TreeNode
-}
-
 // BTreeTransplant replaces the subtree rooted at node with the subtree rooted at rplc
 func BTreeTransplant(root, node, rplc *TreeNode) *TreeNode {
 	if node == root {
