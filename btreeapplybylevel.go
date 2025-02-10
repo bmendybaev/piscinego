@@ -1,9 +1,5 @@
 package piscine
 
-import (
-	"fmt"
-)
-
 type TreeNode struct {
 	Data   string
 	Left   *TreeNode
@@ -55,5 +51,9 @@ func main() {
 	BTreeInsertData(root, "7")
 	BTreeInsertData(root, "5")
 
-	fmt.Println(BTreeIsBinary(root))
+	if BTreeIsBinary(root) {
+		print("true\n")
+	} else {
+		print("false\n")
+	}
 }
