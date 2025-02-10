@@ -15,8 +15,8 @@ type List struct {
 // ListPushFront inserts a new node with the given data at the beginning of the list
 func ListPushFront(l *List, data interface{}) {
 	newNode := &NodeL{Data: data}
-	
-	// If the list is empty, both Head and Tail point to the new node в
+
+	// If the list is empty, both Head and Tail point to the new node
 	if l.Head == nil {
 		l.Head = newNode
 		l.Tail = newNode
