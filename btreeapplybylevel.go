@@ -1,4 +1,4 @@
-ackage piscine
+package piscine
 
 // BTreeIsBinary returns true only if the tree given by root follows the binary search tree properties
 func BTreeIsBinary(root *TreeNode) bool {
