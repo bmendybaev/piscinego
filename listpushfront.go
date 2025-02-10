@@ -1,17 +1,5 @@
 package piscine
 
-// NodeL represents an element in the linked list
-type NodeL struct {
-	Data interface{}
-	Next *NodeL
-}
-
-// List represents the linked list with head and tail pointers
-type List struct {
-	Head *NodeL
-	Tail *NodeL
-}
-
 // ListPushFront inserts a new node with the given data at the beginning of the list
 func ListPushFront(l *List, data interface{}) {
 	newNode := &NodeL{Data: data}
