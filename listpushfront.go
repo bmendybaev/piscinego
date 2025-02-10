@@ -16,7 +16,7 @@ type List struct {
 func ListPushFront(l *List, data interface{}) {
 	newNode := &NodeL{Data: data}
 	
-	// If the list is empty, both Head and Tail point to the new node
+	// If the list is empty, both Head and Tail point to the new node в
 	if l.Head == nil {
 		l.Head = newNode
 		l.Tail = newNode
