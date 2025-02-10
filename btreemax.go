@@ -1,39 +1,40 @@
 package piscine
 
-// TreeNode structure for the binary tree
-type TreeNodeMMM struct {
+// TreeNode represents a node in a binary tree
+type TreeNode struct {
 	Data  string
-	Left  *TreeNodeMMM
-	Right *TreeNodeMMM
+	Left  *TreeNode
+	Right *TreeNode
 }
 
-// BTreeInsertData function to insert data into the tree
-func BTreeInsertDataMAX(root *TreeNodeMMM, data string) {
+// BTreeInsertData inserts data into the binary tree
+func BTreeInsertData(root *TreeNode, data string) {
 	if root == nil {
 		return
 	}
 	if data < root.Data {
 		if root.Left == nil {
-			root.Left = &TreeNodeMMM{Data: data}
+			root.Left = &TreeNode{Data: data}
 		} else {
-			BTreeInsertDataMAX(root.Left, data)
+			BTreeInsertData(root.Left, data)
 		}
 	} else {
 		if root.Right == nil {
-			root.Right = &TreeNodeMMM{Data: data}
+			root.Right = &TreeNode{Data: data}
 		} else {
-			BTreeInsertDataMAX(root.Right, data)
+			BTreeInsertData(root.Right, data)
 		}
 	}
 }
 
-// BTreeMax function to find the node with the maximum value
-func BTreeMax(root *TreeNodeMMM) *TreeNodeMMM {
+// BTreeMax returns the node with the maximum value in the binary tree
+func BTreeMax(root *TreeNode) *TreeNode {
 	if root == nil {
 		return nil
 	}
-	if root.Right != nil {
-		return BTreeMax(root.Right) // Continue to right until you can’t
+	current := root
+	for current.Right != nil {
+		current = current.Right
 	}
-	return root // The maximum value node
+	return current
 }
