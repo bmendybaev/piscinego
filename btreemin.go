@@ -1,7 +1,7 @@
 package piscine
 
 // BTreeMax returns the node with the maximum value in the binary tree
-func BTreeMax(root *TreeNode) *TreeNode {
+func BTreeMin(root *TreeNode) *TreeNode {
 	if root == nil {
 		return nil
 	}
