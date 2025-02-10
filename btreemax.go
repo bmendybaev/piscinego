@@ -8,7 +8,7 @@ type TreeNode struct {
 }
 
 // BTreeInsertData function to insert data into the tree
-func BTreeInsertData(root *TreeNode, data string) {
+func BTreeInsertDataMAX(root *TreeNode, data string) {
 	if root == nil {
 		return
 	}
@@ -16,13 +16,13 @@ func BTreeInsertData(root *TreeNode, data string) {
 		if root.Left == nil {
 			root.Left = &TreeNode{Data: data}
 		} else {
-			BTreeInsertData(root.Left, data)
+			BTreeInsertDataMAX(root.Left, data)
 		}
 	} else {
 		if root.Right == nil {
 			root.Right = &TreeNode{Data: data}
 		} else {
-			BTreeInsertData(root.Right, data)
+			BTreeInsertDataMAX(root.Right, data)
 		}
 	}
 }
