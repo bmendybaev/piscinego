@@ -2,22 +2,19 @@ package piscine
 
 // BTreeIsBinary returns true only if the tree given by root follows the binary search tree properties
 func BTreeIsBinary(root *TreeNode) bool {
-	return isBST(root, nil, nil)
+	return isBST(root, "", "")
 }
 
-func isBST(node *TreeNode, min, max *string) bool {
+func isBST(node *TreeNode, min, max string) bool {
 	if node == nil {
 		return true
 	}
 
-	nodeData, ok := node.Data.(string)
-	if !ok {
+	nodeData := node.Data.(string)
+
+	if (min != "" && nodeData <= min) || (max != "" && nodeData >= max) {
 		return false
 	}
 
-	if (min != nil && nodeData <= *min) || (max != nil && nodeData >= *max) {
-		return false
-	}
-
-	return isBST(node.Left, min, &nodeData) && isBST(node.Right, &nodeData, max)
+	return isBST(node.Left, min, nodeData) && isBST(node.Right, nodeData, max)
 }
