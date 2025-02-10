@@ -18,7 +18,7 @@ func validateBST(node *TreeNode, min, max string) bool {
 	return validateBST(node.Left, min, nodeData) && validateBST(node.Right, nodeData, max)
 }
 
-func BTreeApplyByLevel(root *TreeNode, f func(string, int)) {
+func BTreeApplyByLevel(root *TreeNode, f func(...interface{}) (int, error)) {
 	if root == nil {
 		return
 	}
