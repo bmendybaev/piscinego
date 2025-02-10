@@ -1,13 +1,23 @@
 package piscine
 
-// BTreeMax returns the node with the maximum value in the binary tree
+// BTreeMin returns the node with the minimum value in the binary tree
 func BTreeMin(root *TreeNode) *TreeNode {
 	if root == nil {
 		return nil
 	}
-	current := root
-	for current.Right != nil {
-		current = current.Right
+
+	minNode := root
+
+	leftMin := BTreeMin(root.Left)
+	rightMin := BTreeMin(root.Right)
+
+	if leftMin != nil && leftMin.Data < minNode.Data {
+		minNode = leftMin
 	}
-	return current
+
+	if rightMin != nil && rightMin.Data < minNode.Data {
+		minNode = rightMin
+	}
+
+	return minNode
 }
