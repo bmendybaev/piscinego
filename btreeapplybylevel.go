@@ -45,15 +45,9 @@ func isBST(node *TreeNode, min, max string) bool {
 	return isBST(node.Left, min, nodeData) && isBST(node.Right, nodeData, max)
 }
 
-func main() {
-	root := &TreeNode{Data: "4"}
-	BTreeInsertData(root, "1")
-	BTreeInsertData(root, "7")
-	BTreeInsertData(root, "5")
-
+func BTreeIsBinaryOutput(root *TreeNode) string {
 	if BTreeIsBinary(root) {
-		print("true\n")
-	} else {
-		print("false\n")
+		return "true"
 	}
+	return "false"
 }
