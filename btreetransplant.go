@@ -32,5 +32,16 @@ func BTreeTransplant(root, node, rplc *TreeNode) *TreeNode {
 		}
 	}
 
+	// Update rplc's parent if it's not nil
+	if rplc != nil {
+		if parent != nil {
+			if rplc.Data < parent.Data {
+				parent.Left = rplc
+			} else {
+				parent.Right = rplc
+			}
+		}
+	}
+
 	return root
 }
