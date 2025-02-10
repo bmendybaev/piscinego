@@ -27,19 +27,8 @@ func BTreeTransplant(root, node, rplc *TreeNode) *TreeNode {
 	if parent != nil {
 		if parent.Left == node {
 			parent.Left = rplc
-		} else if parent.Right == node {
+		} else {
 			parent.Right = rplc
-		}
-	}
-
-	// Update rplc's parent if it's not nil
-	if rplc != nil {
-		if parent != nil {
-			if rplc.Data < parent.Data {
-				parent.Left = rplc
-			} else {
-				parent.Right = rplc
-			}
 		}
 	}
 
