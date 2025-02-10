@@ -1,35 +1,29 @@
 package piscine
 
+// TreeNode represents a node in the binary tree
+type TreeNode struct {
+	Data   string
+	Left   *TreeNode
+	Right  *TreeNode
+	Parent *TreeNode
+}
+
 // BTreeTransplant replaces the subtree rooted at node with the subtree rooted at rplc
 func BTreeTransplant(root, node, rplc *TreeNode) *TreeNode {
-	if root == nil || node == nil {
-		return root
-	}
-
-	// If node to replace is the root
-	if root == node {
+	if node == root {
 		return rplc
 	}
 
-	// Find the parent of the node to be replaced
-	var parent *TreeNode
-	current := root
-	for current != nil && current != node {
-		parent = current
-		if node.Data < current.Data {
-			current = current.Left
+	if node.Parent != nil {
+		if node.Parent.Left == node {
+			node.Parent.Left = rplc
 		} else {
-			current = current.Right
+			node.Parent.Right = rplc
 		}
 	}
 
-	// Replace node with rplc
-	if parent != nil {
-		if parent.Left == node {
-			parent.Left = rplc
-		} else {
-			parent.Right = rplc
-		}
+	if rplc != nil {
+		rplc.Parent = node.Parent
 	}
 
 	return root
