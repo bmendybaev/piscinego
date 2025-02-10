@@ -1,14 +1,14 @@
 package piscine
 
-// TreeNode represents a node in the binary tree.
-type TreeNode struct {
+// MaxTreeNode represents a node in the binary tree for the max function.
+type MaxTreeNode struct {
 	Data  string
-	Left  *TreeNode
-	Right *TreeNode
+	Left  *MaxTreeNode
+	Right *MaxTreeNode
 }
 
 // BTreeMax returns the node with the maximum value in the binary search tree.
-func BTreeMax(root *TreeNode) *TreeNode {
+func BTreeMax(root *MaxTreeNode) *MaxTreeNode {
 	if root == nil {
 		return nil
 	}
