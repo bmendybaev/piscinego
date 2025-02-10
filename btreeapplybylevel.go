@@ -1,20 +1,46 @@
-package piscine
+ackage main
 
-// BTreeIsBinary returns true only if the tree given by root follows the binary search tree properties
-func BTreeIsBinary(root *TreeNode) bool {
-	return isBST(root, "", "")
-}
+import (
+	"fmt"
+	"piscine"
+)
 
-func isBST(node *TreeNode, min, max string) bool {
-	if node == nil {
-		return true
+func main() {
+	root := &piscine.TreeNode{Data: "4"}
+	piscine.BTreeInsertData(root, "1")
+	piscine.BTreeInsertData(root, "7")
+	piscine.BTreeInsertData(root, "5")
+
+	fmt.Println("Is Binary Search Tree:", piscine.BTreeIsBinary(root))
+
+	selected := piscine.BTreeSearchItem(root, "7")
+	fmt.Print("Item selected -> ")
+	if selected != nil {
+		fmt.Println(selected.Data)
+	} else {
+		fmt.Println("nil")
 	}
 
-	nodeData := node.Data // node.Data is assumed to be of type string
-
-	if (min != "" && nodeData <= min) || (max != "" && nodeData >= max) {
-		return false
+	fmt.Print("Parent of selected item -> ")
+	if selected != nil && selected.Parent != nil {
+		fmt.Println(selected.Parent.Data)
+	} else {
+		fmt.Println("nil")
 	}
 
-	return isBST(node.Left, min, nodeData) && isBST(node.Right, nodeData, max)
+	fmt.Print("Left child of selected item -> ")
+	if selected != nil && selected.Left != nil {
+		fmt.Println(selected.Left.Data)
+	} else {
+		fmt.Println("nil")
+	}
+
+	fmt.Print("Right child of selected item -> ")
+	if selected != nil && selected.Right != nil {
+		fmt.Println(selected.Right.Data)
+	} else {
+		fmt.Println("nil")
+	}
+
+	fmt.Println("Tree Level Count:", piscine.BTreeLevelCount(root))
 }
