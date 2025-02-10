@@ -1,10 +1,10 @@
 package piscine
 
-func BTreeIsBinary(root *TreeNode) bool {
-	return isBST(root, "", "")
+func CheckIfBinaryTree(root *TreeNode) bool {
+	return validateBST(root, "", "")
 }
 
-func isBST(node *TreeNode, min, max string) bool {
+func validateBST(node *TreeNode, min, max string) bool {
 	if node == nil {
 		return true
 	}
@@ -15,5 +15,5 @@ func isBST(node *TreeNode, min, max string) bool {
 		return false
 	}
 
-	return isBST(node.Left, min, nodeData) && isBST(node.Right, nodeData, max)
+	return validateBST(node.Left, min, nodeData) && validateBST(node.Right, nodeData, max)
 }
