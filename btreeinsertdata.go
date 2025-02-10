@@ -3,7 +3,7 @@ package piscine
 // TreeNode defines the structure of a node in the binary search tree
 type TreeNode struct {
 	Left, Right, Parent *TreeNode
-	Data               string
+	Data                string
 }
 
 // BTreeInsertData inserts new data into the binary search tree following BST properties
