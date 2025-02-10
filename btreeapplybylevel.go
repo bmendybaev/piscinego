@@ -7,7 +7,7 @@ type TreeNode struct {
 	Parent *TreeNode
 }
 
-func InsertData(root *TreeNode, data string) *TreeNode {
+func BTreeInsertData(root *TreeNode, data string) *TreeNode {
 	if root == nil {
 		return &TreeNode{Data: data}
 	}
@@ -15,19 +15,19 @@ func InsertData(root *TreeNode, data string) *TreeNode {
 		if root.Left == nil {
 			root.Left = &TreeNode{Data: data, Parent: root}
 		} else {
-			InsertData(root.Left, data)
+			BTreeInsertData(root.Left, data)
 		}
 	} else {
 		if root.Right == nil {
 			root.Right = &TreeNode{Data: data, Parent: root}
 		} else {
-			InsertData(root.Right, data)
+			BTreeInsertData(root.Right, data)
 		}
 	}
 	return root
 }
 
-func IsBinarySearchTree(root *TreeNode) bool {
+func BTreeIsBinary(root *TreeNode) bool {
 	return checkBST(root, "", "")
 }
 
@@ -43,13 +43,6 @@ func checkBST(node *TreeNode, min, max string) bool {
 	}
 
 	return checkBST(node.Left, min, nodeData) && checkBST(node.Right, nodeData, max)
-}
-
-func IsBinarySearchTreeOutput(root *TreeNode) string {
-	if IsBinarySearchTree(root) {
-		return "true"
-	}
-	return "false"
 }
 
 func BTreeApplyByLevel(root *TreeNode, f func(string, int)) {
