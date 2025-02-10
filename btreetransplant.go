@@ -6,14 +6,30 @@ func BTreeTransplant(root, node, rplc *TreeNode) *TreeNode {
 		return root
 	}
 
+	// If node to replace is the root
 	if root == node {
 		return rplc
 	}
 
-	if node.Data < root.Data {
-		root.Left = BTreeTransplant(root.Left, node, rplc)
-	} else if node.Data > root.Data {
-		root.Right = BTreeTransplant(root.Right, node, rplc)
+	// Find the parent of the node to be replaced
+	var parent *TreeNode
+	current := root
+	for current != nil && current != node {
+		parent = current
+		if node.Data < current.Data {
+			current = current.Left
+		} else {
+			current = current.Right
+		}
+	}
+
+	// Replace node with rplc
+	if parent != nil {
+		if parent.Left == node {
+			parent.Left = rplc
+		} else if parent.Right == node {
+			parent.Right = rplc
+		}
 	}
 
 	return root
