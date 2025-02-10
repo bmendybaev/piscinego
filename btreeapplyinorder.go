@@ -1,7 +1,5 @@
 package piscine
 
-import "fmt"
-
 // TreeNode represents a node in the binary tree
 type TreeNode struct {
 	Data  interface{}
@@ -14,7 +12,7 @@ func BTreeInsertData(root *TreeNode, data interface{}) *TreeNode {
 	if root == nil {
 		return &TreeNode{Data: data}
 	}
-	if fmt.Sprintf("%v", data) < fmt.Sprintf("%v", root.Data) {
+	if data.(string) < root.Data.(string) {
 		root.Left = BTreeInsertData(root.Left, data)
 	} else {
 		root.Right = BTreeInsertData(root.Right, data)
