@@ -10,7 +10,10 @@ func isBST(node *TreeNode, min, max string) bool {
 		return true
 	}
 
-	nodeData := node.Data.(string)
+	nodeData, ok := node.Data.(string)
+	if !ok {
+		return false
+	}
 
 	if (min != "" && nodeData <= min) || (max != "" && nodeData >= max) {
 		return false
