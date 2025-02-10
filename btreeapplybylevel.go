@@ -1,37 +1,37 @@
 package piscine
 
-type TreeNode struct {
+type BinaryTreeNode struct {
 	Data   string
-	Left   *TreeNode
-	Right  *TreeNode
-	Parent *TreeNode
+	Left   *BinaryTreeNode
+	Right  *BinaryTreeNode
+	Parent *BinaryTreeNode
 }
 
-func BTreeInsertData(root *TreeNode, data string) *TreeNode {
+func InsertData(root *BinaryTreeNode, data string) *BinaryTreeNode {
 	if root == nil {
-		return &TreeNode{Data: data}
+		return &BinaryTreeNode{Data: data}
 	}
 	if data < root.Data {
 		if root.Left == nil {
-			root.Left = &TreeNode{Data: data, Parent: root}
+			root.Left = &BinaryTreeNode{Data: data, Parent: root}
 		} else {
-			BTreeInsertData(root.Left, data)
+			InsertData(root.Left, data)
 		}
 	} else {
 		if root.Right == nil {
-			root.Right = &TreeNode{Data: data, Parent: root}
+			root.Right = &BinaryTreeNode{Data: data, Parent: root}
 		} else {
-			BTreeInsertData(root.Right, data)
+			InsertData(root.Right, data)
 		}
 	}
 	return root
 }
 
-func BTreeIsBinary(root *TreeNode) bool {
-	return isBST(root, "", "")
+func IsBinarySearchTree(root *BinaryTreeNode) bool {
+	return checkBST(root, "", "")
 }
 
-func isBST(node *TreeNode, min, max string) bool {
+func checkBST(node *BinaryTreeNode, min, max string) bool {
 	if node == nil {
 		return true
 	}
@@ -42,11 +42,11 @@ func isBST(node *TreeNode, min, max string) bool {
 		return false
 	}
 
-	return isBST(node.Left, min, nodeData) && isBST(node.Right, nodeData, max)
+	return checkBST(node.Left, min, nodeData) && checkBST(node.Right, nodeData, max)
 }
 
-func BTreeIsBinaryOutput(root *TreeNode) string {
-	if BTreeIsBinary(root) {
+func IsBinarySearchTreeOutput(root *BinaryTreeNode) string {
+	if IsBinarySearchTree(root) {
 		return "true"
 	}
 	return "false"
