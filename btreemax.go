@@ -1,21 +1,34 @@
 package piscine
 
-// MaxTreeNode represents a node in the binary tree for the max function.
-type MaxTreeNode struct {
-	Data  string
-	Left  *MaxTreeNode
-	Right *MaxTreeNode
+// TreeNode represents a node in a binary tree
+type TreeNode struct {
+    Data  string
+    Left  *TreeNode
+    Right *TreeNode
 }
 
-// BTreeMax returns the node with the maximum value in the binary search tree.
-func BTreeMax(root *MaxTreeNode) *MaxTreeNode {
-	if root == nil {
-		return nil
-	}
-	// Traverse to the rightmost node
-	current := root
-	for current.Right != nil {
-		current = current.Right
-	}
-	return current
+// BTreeInsertData inserts data into the binary search tree
+func BTreeInsertData(root **TreeNode, data string) {
+    if *root == nil {
+        *root = &TreeNode{Data: data}
+        return
+    }
+    if data < (*root).Data {
+        BTreeInsertData(&(*root).Left, data)
+    } else {
+        BTreeInsertData(&(*root).Right, data)
+    }
+}
+
+// BTreeMax returns the node with the maximum value in the binary tree
+func BTreeMax(root *TreeNode) *TreeNode {
+    if root == nil {
+        return nil
+    }
+
+    current := root
+    for current.Right != nil {
+        current = current.Right
+    }
+    return current
 }
