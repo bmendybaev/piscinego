@@ -1,41 +1,32 @@
-// btree.go
 package piscine
 
-// TreeNode defines the structure of a node in the binary search tree
+import "fmt"
+
+// TreeNode represents a node in the binary tree
 type TreeNode struct {
-	Left, Right, Parent *TreeNode
-	Data                string
+	Data  interface{}
+	Left  *TreeNode
+	Right *TreeNode
 }
 
-// BTreeInsertData inserts new data into the binary search tree following BST properties
-func BTreeInsertData(root *TreeNode, data string) *TreeNode {
+// BTreeInsertData inserts data into the binary search tree
+func BTreeInsertData(root *TreeNode, data interface{}) *TreeNode {
 	if root == nil {
 		return &TreeNode{Data: data}
 	}
-
-	if data < root.Data {
-		if root.Left == nil {
-			root.Left = &TreeNode{Data: data, Parent: root}
-		} else {
-			BTreeInsertData(root.Left, data)
-		}
+	if fmt.Sprintf("%v", data) < fmt.Sprintf("%v", root.Data) {
+		root.Left = BTreeInsertData(root.Left, data)
 	} else {
-		if root.Right == nil {
-			root.Right = &TreeNode{Data: data, Parent: root}
-		} else {
-			BTreeInsertData(root.Right, data)
-		}
+		root.Right = BTreeInsertData(root.Right, data)
 	}
-
 	return root
 }
 
-// BTreeApplyInorder applies a given function f to each element in the tree in inorder traversal
+// BTreeApplyInorder applies the function f to each element in the tree in inorder traversal
 func BTreeApplyInorder(root *TreeNode, f func(...interface{}) (int, error)) {
 	if root == nil {
 		return
 	}
-
 	BTreeApplyInorder(root.Left, f)
 	f(root.Data)
 	BTreeApplyInorder(root.Right, f)
