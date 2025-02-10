@@ -1,34 +1,39 @@
-package piscine
+package piscine  
 
-// TreeNode represents a node in a binary tree
-type TreeNodeМ struct {
-	Data  string
-	Left  *TreeNodeМ
-	Right *TreeNodeМ
-}
+// TreeNode structure for the binary tree  
+type TreeNode struct {  
+    Data  string  
+    Left  *TreeNode  
+    Right *TreeNode  
+}  
 
-// BTreeInsertData inserts data into the binary search tree
-func BTreeInsertData(root **TreeNodeМ, data string) {
-	if *root == nil {
-		*root = &TreeNodeМ{Data: data}
-		return
-	}
-	if data < (*root).Data {
-		BTreeInsertData(&(*root).Left, data)
-	} else {
-		BTreeInsertData(&(*root).Right, data)
-	}
-}
+// BTreeInsertData function to insert data into the tree  
+func BTreeInsertData(root *TreeNode, data string) {  
+    if root == nil {  
+        return  
+    }  
+    if data < root.Data {  
+        if root.Left == nil {  
+            root.Left = &TreeNode{Data: data}  
+        } else {  
+            BTreeInsertData(root.Left, data)  
+        }  
+    } else {  
+        if root.Right == nil {  
+            root.Right = &TreeNode{Data: data}  
+        } else {  
+            BTreeInsertData(root.Right, data)  
+        }  
+    }  
+}  
 
-// BTreeMax returns the node with the maximum value in the binary tree
-func BTreeMax(root *TreeNodeМ) *TreeNodeМ {
-	if root == nil {
-		return nil
-	}
-
-	current := root
-	for current.Right != nil {
-		current = current.Right
-	}
-	return current
+// BTreeMax function to find the node with the maximum value  
+func BTreeMax(root *TreeNode) *TreeNode {  
+    if root == nil {  
+        return nil  
+    }  
+    if root.Right != nil {  
+        return BTreeMax(root.Right) // Continue to right until you can’t  
+    }  
+    return root // The maximum value node  
 }
