@@ -1,4 +1,4 @@
-package piscine
+ackage piscine
 
 // BTreeIsBinary returns true only if the tree given by root follows the binary search tree properties
 func BTreeIsBinary(root *TreeNode) bool {
@@ -10,7 +10,7 @@ func isBST(node *TreeNode, min, max string) bool {
 		return true
 	}
 
-	nodeData := node.Data.(string) // Ensure node.Data is a string
+	nodeData := node.Data // node.Data is assumed to be of type string
 
 	if (min != "" && nodeData <= min) || (max != "" && nodeData >= max) {
 		return false
