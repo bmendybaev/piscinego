@@ -10,7 +10,7 @@ func isBST(node *TreeNode, min, max string) bool {
 		return true
 	}
 
-	nodeData := node.Data.(string) // Ensure node.Data is of type string
+	nodeData := node.Data // No type assertion needed
 
 	if (min != "" && nodeData <= min) || (max != "" && nodeData >= max) {
 		return false
